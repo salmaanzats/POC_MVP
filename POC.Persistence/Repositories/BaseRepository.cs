@@ -24,18 +24,19 @@ namespace POC.Persistence.Repositories
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            return await _dbContext.Set<T>().ToListAsync();
+            var list = await _dbContext.Set<T>().ToListAsync();
+            return list;
         }
 
         public async virtual Task<IReadOnlyList<T>> GetPagedReponseAsync(int page, int size)
         {
-            return await _dbContext.Set<T>().Skip((page - 1) * size).Take(size).AsNoTracking().ToListAsync();
+            return await _dbContext.Set<T>().Skip((page - 1) * size).Take(size).ToListAsync();
         }
 
         public async Task<T> AddAsync(T entity)
         {
             _dbContext.Set<T>().Add(entity);
-             await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
 
             return entity;
         }

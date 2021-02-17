@@ -14,7 +14,8 @@ namespace POC.Persistence
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<POCDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("POCConnectionString")));
+                options.UseSqlServer(configuration.GetConnectionString("POCConnectionString"))
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
 
