@@ -38,7 +38,7 @@ namespace POC_MVP.Views
             this.userListView.HideSelection = false;
             this.userListView.Location = new System.Drawing.Point(0, 0);
             this.userListView.Name = "userListView";
-            this.userListView.Size = new System.Drawing.Size(210, 392);
+            this.userListView.Size = new System.Drawing.Size(243, 442);
             this.userListView.TabIndex = 0;
             this.userListView.UseCompatibleStateImageBehavior = false;
             // 
@@ -48,7 +48,7 @@ namespace POC_MVP.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.userListView);
             this.Name = "UserView";
-            this.Size = new System.Drawing.Size(210, 392);
+            this.Size = new System.Drawing.Size(243, 442);
             this.ResumeLayout(false);
 
         }
