@@ -9,7 +9,7 @@ namespace POC.Application.Responses
     {
         public Response() : base() { }
 
-        public int TotalRecordCount { get; set; }
-        public IEnumerable<T> Records { get; set; }
+        public int TotalRecordCount { get; set; } = 1;
+        public T Data { get; set; }
     }
 }
