@@ -18,20 +18,10 @@ namespace POC_MVP.Presenter
 
         private void MainFormViewOnLoad(object sender, EventArgs eventArgs)
         {
-
             foreach (var user in this.userManager.Users?.ToList())
             {
                 EventAggregator.Instance.Publish(new UserLoadedMessage(user));
             }
-
-            //EventAggregator.Instance.Publish(new PodcastLoadCompleteMessage(subscriptionManager.Subscriptions.ToArray()));
-
-            //if (settingsService.FirstRun)
-            //{
-            //    messageBoxDisplayService.Show("Welcome! Get started by clicking Add to subscribe to a podcast");
-            //    settingsService.FirstRun = false;
-            //    settingsService.Save();
-            //}
         }
     }
 }

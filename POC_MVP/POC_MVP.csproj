@@ -68,11 +68,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLogic\IUserManager.cs" />
-    <Compile Include="BusinessLogic\UserManager.cs" />
+    <Compile Include="Service\IUserManager.cs" />
+    <Compile Include="Service\UserManager.cs" />
     <Compile Include="Events\EventAggregator.cs" />
-    <Compile Include="Events\IApplicationEvent.cs" />
-    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\interface\IApplicationEvent.cs" />
+    <Compile Include="Events\interface\IEventAggregator.cs" />
     <Compile Include="Events\UserLoadedMessage.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Presenter\MainPresenter.cs" />
