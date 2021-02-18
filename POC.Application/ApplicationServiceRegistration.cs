@@ -13,6 +13,8 @@ namespace POC.Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            //services.AddFluentValidation(Assembly.GetExecutingAssembly());
+
 
             return services;
         }

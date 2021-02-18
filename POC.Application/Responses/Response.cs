@@ -9,7 +9,24 @@ namespace POC.Application.Responses
     {
         public Response() : base() { }
 
-        public int TotalRecordCount { get; set; } = 1;
+        private int _totalRecordCount = 1;
+        public int TotalRecordCount
+        {
+            get
+            {
+                if (Data == null)
+                {
+                    _totalRecordCount = 0;
+                }
+
+                return _totalRecordCount;
+            }
+
+            set
+            {
+                _totalRecordCount = value;
+            }
+        }
         public T Data { get; set; }
     }
 }

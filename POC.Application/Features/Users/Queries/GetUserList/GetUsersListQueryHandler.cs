@@ -14,17 +14,17 @@ namespace POC.Application.Features.Users.Queries.GetUserList
     class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, Response<IEnumerable<UserViewModel>>>
     {
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<User> _eventRepository;
+        private readonly IAsyncRepository<User> _userRepository;
 
-        public GetUsersListQueryHandler(IMapper mapper, IAsyncRepository<User> eventRepository)
+        public GetUsersListQueryHandler(IMapper mapper, IAsyncRepository<User> userRepository)
         {
             _mapper = mapper;
-            _eventRepository = eventRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<Response<IEnumerable<UserViewModel>>> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
         {
-            var queryResult = await _eventRepository.ListAllAsync();
+            var queryResult = await _userRepository.ListAllAsync();
 
             var vmList = _mapper.Map<List<UserViewModel>>(queryResult);
 
