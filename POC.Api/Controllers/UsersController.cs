@@ -46,7 +46,24 @@ namespace POC.Api.Controllers
         public async Task<ActionResult<Response<CreateUserCommandResponse>>> Create([FromBody] CreateUserCommand createUserCommand)
         {
             var response = await _mediator.Send(createUserCommand);
-            return Ok(response);
+
+            if (response.Success)
+                return CreatedAtRoute("GetUser", new { id = response.Data.Id }, response);
+
+            else
+                return BadRequest(response);
+        }
+
+        [HttpPut(Name = "UpdateUser")]
+        public async Task<ActionResult<Response<CreateUserCommandResponse>>> UpdateUserk([FromBody] CreateUserCommand createUserCommand)
+        {
+            var response = await _mediator.Send(createUserCommand);
+
+            if (response.Success)
+                return Ok(response);
+
+            else
+                return BadRequest(response);
         }
     }
 }
