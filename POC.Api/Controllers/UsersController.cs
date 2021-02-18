@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POC.Application.Features.Users.Command.CreateUser;
+using POC.Application.Features.Users.Command.UpdateUser;
 using POC.Application.Features.Users.Queries.GetUserDetail;
 using POC.Application.Features.Users.Queries.GetUserList;
 using POC.Application.Responses;
@@ -54,16 +55,13 @@ namespace POC.Api.Controllers
                 return BadRequest(response);
         }
 
-        [HttpPut(Name = "UpdateUser")]
-        public async Task<ActionResult<Response<CreateUserCommandResponse>>> UpdateUserk([FromBody] CreateUserCommand createUserCommand)
+        [HttpPut("{id}", Name = "UpdateUser")]
+        public async Task<ActionResult<Response<CreateUserCommandResponse>>> UpdateUser(Guid id, [FromBody] UpdateUserCommand createUserCommand)
         {
-            var response = await _mediator.Send(createUserCommand);
+            createUserCommand.Id = id;
+            await _mediator.Send(createUserCommand);
 
-            if (response.Success)
-                return Ok(response);
-
-            else
-                return BadRequest(response);
+            return NoContent();
         }
     }
 }

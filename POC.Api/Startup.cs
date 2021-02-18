@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using POC.Api.Middleware;
 using POC.Application;
 using POC.Infrastructure;
 using POC.Persistence;
@@ -45,6 +46,8 @@ namespace POC.Api
             }
 
             app.UseRouting();
+
+            app.UseCustomExceptionHandler();
 
             app.UseCors("Open");
 
