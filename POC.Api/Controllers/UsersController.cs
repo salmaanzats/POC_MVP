@@ -16,6 +16,7 @@ namespace POC.Api.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    [ResponseCache(CacheProfileName = "DefaultCache")]
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -26,6 +27,7 @@ namespace POC.Api.Controllers
         }
 
         [HttpGet(Name = "GetAllUsers")]
+        [ResponseCache(Duration = 120)]
         [ProducesResponseType(typeof(Response<IEnumerable<UserViewModel>>), StatusCodes.Status200OK)]
         public async Task<ActionResult<Response<IEnumerable<UserViewModel>>>> GetAllUsers()
         {
@@ -35,6 +37,7 @@ namespace POC.Api.Controllers
 
 
         [HttpGet("{id}", Name = "GetUser")]
+        //[ResponseCache(Duration = 120)]
         [ProducesResponseType(typeof(Response<UserDetailViewModel>), StatusCodes.Status200OK)]
         public async Task<ActionResult<Response<UserDetailViewModel>>> GetUser(Guid id)
         {
