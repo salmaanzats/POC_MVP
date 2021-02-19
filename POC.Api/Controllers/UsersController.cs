@@ -26,7 +26,6 @@ namespace POC.Api.Controllers
 
         [HttpGet(Name = "GetAllUsers")]
         [ProducesResponseType(typeof(Response<IEnumerable<UserViewModel>>), StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<Response<IEnumerable<UserViewModel>>>> GetAllUsers()
         {
             var viewModel = await _mediator.Send(new GetUsersListQuery());
@@ -36,7 +35,6 @@ namespace POC.Api.Controllers
 
         [HttpGet("{id}", Name = "GetUser")]
         [ProducesResponseType(typeof(Response<UserDetailViewModel>), StatusCodes.Status200OK)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult<Response<UserDetailViewModel>>> GetUser(Guid id)
         {
             var viewModel = await _mediator.Send(new GetUserDetailQuery() { UserId = id });
@@ -56,10 +54,10 @@ namespace POC.Api.Controllers
         }
 
         [HttpPut("{id}", Name = "UpdateUser")]
-        public async Task<ActionResult<Response<CreateUserCommandResponse>>> UpdateUser(Guid id, [FromBody] UpdateUserCommand createUserCommand)
+        public async Task<ActionResult<Response<CreateUserCommandResponse>>> UpdateUser(Guid id, [FromBody] UpdateUserCommand updateUserCommand)
         {
-            createUserCommand.Id = id;
-            await _mediator.Send(createUserCommand);
+            updateUserCommand.Id = id;
+            await _mediator.Send(updateUserCommand);
 
             return NoContent();
         }

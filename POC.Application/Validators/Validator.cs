@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace POC.Application.Validators
 {
-    public  class Validator<TValidator> where TValidator : IValidator, new()
+    public class Validator<TValidator> where TValidator : IValidator, new()
     {
         public static async Task ValidateAsync<TRequest, TResult>(TRequest request, Response<TResult> result)
         {
-            var validator = (new TValidator()) as AbstractValidator<TRequest>;
+            var validator = new TValidator() as AbstractValidator<TRequest>;
 
             var validationResult = await validator.ValidateAsync(request);
 
@@ -27,6 +27,4 @@ namespace POC.Application.Validators
             }
         }
     }
-
-
 }
