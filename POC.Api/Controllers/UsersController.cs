@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POC.Application.Features.Users.Command.CreateUser;
+using POC.Application.Features.Users.Command.DeleteUserCommand;
 using POC.Application.Features.Users.Command.UpdateUser;
 using POC.Application.Features.Users.Queries.GetUserDetail;
 using POC.Application.Features.Users.Queries.GetUserList;
@@ -42,6 +43,9 @@ namespace POC.Api.Controllers
         }
 
         [HttpPost(Name = "AddUser")]
+        [ProducesResponseType(typeof(Response<CreateUserCommandResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
         public async Task<ActionResult<Response<CreateUserCommandResponse>>> Create([FromBody] CreateUserCommand createUserCommand)
         {
             var response = await _mediator.Send(createUserCommand);
@@ -54,11 +58,24 @@ namespace POC.Api.Controllers
         }
 
         [HttpPut("{id}", Name = "UpdateUser")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Response<CreateUserCommandResponse>>> UpdateUser(Guid id, [FromBody] UpdateUserCommand updateUserCommand)
         {
             updateUserCommand.Id = id;
             await _mediator.Send(updateUserCommand);
 
+            return NoContent();
+        }
+
+        [HttpDelete("{id}", Name = "DeleteUser")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var deleteUserCommand = new DeleteUserCommand() { Id = id };
+            await _mediator.Send(deleteUserCommand);
             return NoContent();
         }
     }
