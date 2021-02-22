@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Marvin.Cache.Headers;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POC.Application.Features.Users.Command.CreateUser;
@@ -16,7 +17,7 @@ namespace POC.Api.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    [ResponseCache(CacheProfileName = "DefaultCache")]
+    //[ResponseCache(CacheProfileName = "DefaultCache")]
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,8 +28,10 @@ namespace POC.Api.Controllers
         }
 
         [HttpGet(Name = "GetAllUsers")]
-        [ResponseCache(Duration = 120)]
+        //[ResponseCache(Duration = 120)]
         [ProducesResponseType(typeof(Response<IEnumerable<UserViewModel>>), StatusCodes.Status200OK)]
+        //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 120)]
+        //[HttpCacheValidation(MustRevalidate = true)]
         public async Task<ActionResult<Response<IEnumerable<UserViewModel>>>> GetAllUsers()
         {
             var viewModel = await _mediator.Send(new GetUsersListQuery());
@@ -39,6 +42,8 @@ namespace POC.Api.Controllers
         [HttpGet("{id}", Name = "GetUser")]
         //[ResponseCache(Duration = 120)]
         [ProducesResponseType(typeof(Response<UserDetailViewModel>), StatusCodes.Status200OK)]
+        //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 120)]
+        //[HttpCacheValidation(MustRevalidate = true)]
         public async Task<ActionResult<Response<UserDetailViewModel>>> GetUser(Guid id)
         {
             var viewModel = await _mediator.Send(new GetUserDetailQuery() { UserId = id });
@@ -74,7 +79,6 @@ namespace POC.Api.Controllers
         [HttpDelete("{id}", Name = "DeleteUser")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
         public async Task<ActionResult> Delete(Guid id)
         {
             var deleteUserCommand = new DeleteUserCommand() { Id = id };

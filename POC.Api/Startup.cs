@@ -25,6 +25,17 @@ namespace POC.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpCacheHeaders((expirationModelOptions) =>
+            {
+                expirationModelOptions.MaxAge =120;
+                expirationModelOptions.CacheLocation = Marvin.Cache.Headers.CacheLocation.Public;
+
+            },
+            (validationModelOption) =>
+            {
+                validationModelOption.MustRevalidate = true;
+            });
+
             services.AddResponseCaching();
 
             AddSwagger(services);
@@ -44,7 +55,7 @@ namespace POC.Api
             {
                 cfg.CacheProfiles.Add("DefaultCache", new CacheProfile()
                 {
-                    Duration=240
+                    Duration = 240
                 });
             });
         }
@@ -57,7 +68,10 @@ namespace POC.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            //does not valdidate ETag when resource is updated
             app.UseResponseCaching();
+
+            app.UseHttpCacheHeaders();
 
             app.UseRouting();
 
