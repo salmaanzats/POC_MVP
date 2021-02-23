@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using POC.Application.Features.Users.Command.CreateUser;
+using POC.Application.Features.Users.Command.UpdateUser;
 using POC.Application.Features.Users.Queries.GetUserDetail;
 using POC.Application.Features.Users.Queries.GetUserList;
 using POC.Domain.Entitities;
@@ -16,6 +17,7 @@ namespace POC.Application.AutoMapperProfiles
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<User, UserDetailViewModel>();
             CreateMap<User, CreateUserCommandResponse>();
+            CreateMap<UpdateUserCommand, User>();
         }
     }
 }

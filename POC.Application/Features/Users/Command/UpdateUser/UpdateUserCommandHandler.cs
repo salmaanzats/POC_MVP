@@ -43,6 +43,10 @@ namespace POC.Application.Features.Users.Command.UpdateUser
                 throw new ValidationException(result.ValidationErrors);
             }
 
+            _mapper.Map(request, eventToUpdate);
+
+            await _userRepository.UpdateAsync(eventToUpdate);
+
             return Unit.Value;
         }
     }
