@@ -5,7 +5,7 @@ using System.Text;
 
 namespace POC.Application.Responses
 {
-    public class Response<T> : BaseResponse
+    public sealed class Response<T> : BaseResponse
     {
         public Response() : base() { }
 
