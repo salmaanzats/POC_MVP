@@ -5,9 +5,9 @@ using System.Text;
 
 namespace POC.Application.Responses
 {
-    public sealed class Response<T> : BaseResponse
+    public sealed class SuccessResponse<T> : BaseResponse
     {
-        public Response() : base() { }
+        public SuccessResponse() : base() { }
 
         private int _totalRecordCount = 1;
         public int TotalRecordCount

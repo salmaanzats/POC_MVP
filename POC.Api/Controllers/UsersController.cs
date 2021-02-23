@@ -29,10 +29,10 @@ namespace POC.Api.Controllers
 
         [HttpGet(Name = "GetAllUsers")]
         //[ResponseCache(Duration = 120)]
-        [ProducesResponseType(typeof(Response<IEnumerable<UserViewModel>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SuccessResponse<IEnumerable<UserViewModel>>), StatusCodes.Status200OK)]
         //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 120)]
         //[HttpCacheValidation(MustRevalidate = true)]
-        public async Task<ActionResult<Response<IEnumerable<UserViewModel>>>> GetAllUsers()
+        public async Task<ActionResult<SuccessResponse<IEnumerable<UserViewModel>>>> GetAllUsers()
         {
             var viewModel = await _mediator.Send(new GetUsersListQuery());
             return Ok(viewModel);
@@ -41,34 +41,35 @@ namespace POC.Api.Controllers
 
         [HttpGet("{id}", Name = "GetUser")]
         //[ResponseCache(Duration = 120)]
-        [ProducesResponseType(typeof(Response<UserDetailViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SuccessResponse<UserDetailViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 120)]
         //[HttpCacheValidation(MustRevalidate = true)]
-        public async Task<ActionResult<Response<UserDetailViewModel>>> GetUser(Guid id)
+        public async Task<ActionResult<SuccessResponse<UserDetailViewModel>>> GetUser(Guid id)
         {
             var viewModel = await _mediator.Send(new GetUserDetailQuery() { UserId = id });
             return Ok(viewModel);
         }
 
         [HttpPost(Name = "AddUser")]
-        [ProducesResponseType(typeof(Response<CreateUserCommandResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(SuccessResponse<CreateUserCommandResponse>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public async Task<ActionResult<Response<CreateUserCommandResponse>>> Create([FromBody] CreateUserCommand createUserCommand)
+        public async Task<ActionResult<SuccessResponse<CreateUserCommandResponse>>> Create([FromBody] CreateUserCommand createUserCommand)
         {
             var response = await _mediator.Send(createUserCommand);
 
-            if (response.Success)
-                return CreatedAtRoute(nameof(GetUser), new { id = response.Data.Id }, response);
+            return CreatedAtRoute(nameof(GetUser), new { id = response.Data.Id }, response);
 
-            else
-                return BadRequest(response);
+
         }
 
         [HttpPut("{id}", Name = "UpdateUser")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Response<CreateUserCommandResponse>>> UpdateUser(Guid id, [FromBody] UpdateUserCommand updateUserCommand)
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<SuccessResponse<CreateUserCommandResponse>>> UpdateUser(Guid id, [FromBody] UpdateUserCommand updateUserCommand)
         {
             updateUserCommand.Id = id;
             await _mediator.Send(updateUserCommand);
@@ -78,7 +79,7 @@ namespace POC.Api.Controllers
 
         [HttpDelete("{id}", Name = "DeleteUser")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete(Guid id)
         {
             var deleteUserCommand = new DeleteUserCommand() { Id = id };

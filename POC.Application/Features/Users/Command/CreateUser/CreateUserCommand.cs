@@ -7,7 +7,7 @@ using static POC.Utility.BaseEnums;
 
 namespace POC.Application.Features.Users.Command.CreateUser
 {
-    public class CreateUserCommand : IRequest<Response<CreateUserCommandResponse>>
+    public class CreateUserCommand : IRequest<SuccessResponse<CreateUserCommandResponse>>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

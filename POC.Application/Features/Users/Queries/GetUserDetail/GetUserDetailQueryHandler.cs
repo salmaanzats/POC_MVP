@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using POC.Application.Contracts.Persistence;
+using POC.Application.Exceptions;
 using POC.Application.Responses;
 using POC.Domain.Entitities;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace POC.Application.Features.Users.Queries.GetUserDetail
 {
-    class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQuery, Response<UserDetailViewModel>>
+    class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQuery, SuccessResponse<UserDetailViewModel>>
     {
         private readonly IAsyncRepository<User> _userRepository;
         private readonly IMapper _mapper;
@@ -23,13 +24,18 @@ namespace POC.Application.Features.Users.Queries.GetUserDetail
             _mapper = mapper;
         }
 
-        public async Task<Response<UserDetailViewModel>> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
+        public async Task<SuccessResponse<UserDetailViewModel>> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
         {
             var userDetail = await _userRepository.GetByIdAsync(request.UserId);
 
+            if (userDetail is null)
+            {
+                throw new NotFoundException(nameof(User), request.UserId);
+            }
+
             var userDetailViewModel = _mapper.Map<UserDetailViewModel>(userDetail);
 
-            var result = new Response<UserDetailViewModel>()
+            var result = new SuccessResponse<UserDetailViewModel>()
             {
                 Data = userDetailViewModel
             };

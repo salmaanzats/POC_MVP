@@ -10,7 +10,7 @@ namespace POC.Application.Validators
 {
     public class Validator<TValidator> where TValidator : IValidator, new()
     {
-        public static async Task ValidateAsync<TRequest, TResult>(TRequest request, Response<TResult> result)
+        public static async Task ValidateAsync<TRequest, TResult>(TRequest request, SuccessResponse<TResult> result)
         {
             var validator = new TValidator() as AbstractValidator<TRequest>;
 

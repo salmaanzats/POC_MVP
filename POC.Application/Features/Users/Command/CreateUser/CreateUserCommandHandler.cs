@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using POC.Application.Contracts.Persistence;
+using POC.Application.Exceptions;
 using POC.Application.Responses;
 using POC.Application.Validators;
 using POC.Domain.Entitities;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace POC.Application.Features.Users.Command.CreateUser
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Response<CreateUserCommandResponse>>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, SuccessResponse<CreateUserCommandResponse>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<User> _userRepository;
@@ -20,20 +21,22 @@ namespace POC.Application.Features.Users.Command.CreateUser
             _userRepository = userRepository;
         }
 
-        public async Task<Response<CreateUserCommandResponse>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<SuccessResponse<CreateUserCommandResponse>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var result = new Response<CreateUserCommandResponse>();
+            var result = new SuccessResponse<CreateUserCommandResponse>();
 
             await Validator<CreateUserCommandValidator>.ValidateAsync(request, result);
 
-            if (result.Success == true)
+            if (result.Success == false)
             {
-                var user = new User().Create(request.FirstName, request.LastName, request.Address, request.School, request.Gender);
-
-                user = await _userRepository.AddAsync(user);
-
-                result.Data = _mapper.Map<CreateUserCommandResponse>(user);
+                throw new ValidationException(result.ValidationErrors);
             }
+
+            var user = new User().Create(request.FirstName, request.LastName, request.Address, request.School, request.Gender);
+
+            user = await _userRepository.AddAsync(user);
+
+            result.Data = _mapper.Map<CreateUserCommandResponse>(user);
 
             return result;
         }

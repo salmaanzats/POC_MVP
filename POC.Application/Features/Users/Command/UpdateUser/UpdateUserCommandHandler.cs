@@ -26,7 +26,7 @@ namespace POC.Application.Features.Users.Command.UpdateUser
         }
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var result = new Response<ValidationResult>();
+            var result = new SuccessResponse<ValidationResult>();
 
             var eventToUpdate = await _userRepository.GetByIdAsync(request.Id);
 

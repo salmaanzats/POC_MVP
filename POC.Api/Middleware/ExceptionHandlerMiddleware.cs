@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using POC.Application.Exceptions;
+using POC.Application.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,8 @@ namespace POC.Api.Middleware
 
         private Task ConvertException(HttpContext context, Exception exception)
         {
+            var errorResponse = new ErrorResponse() { ValidationErrors = new List<string>() };
+
             HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError;
 
             context.Response.ContentType = "application/json";
@@ -42,11 +45,13 @@ namespace POC.Api.Middleware
             {
                 case ValidationException validationException:
                     httpStatusCode = HttpStatusCode.BadRequest;
-                    result = JsonConvert.SerializeObject(validationException.ValdationErrors);
+                    errorResponse.ValidationErrors.AddRange(validationException.ValdationErrors);
+                    result = JsonConvert.SerializeObject(errorResponse);
                     break;
                 case BadRequestException badRequestException:
                     httpStatusCode = HttpStatusCode.BadRequest;
-                    result = badRequestException.Message;
+                    errorResponse.ValidationErrors.Add(badRequestException.Message);
+                    result = JsonConvert.SerializeObject(errorResponse);
                     break;
                 case NotFoundException notFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
@@ -60,7 +65,8 @@ namespace POC.Api.Middleware
 
             if (result == string.Empty)
             {
-                result = JsonConvert.SerializeObject(new { error = exception.Message });
+                errorResponse.ValidationErrors.Add(exception.Message);
+                result = JsonConvert.SerializeObject(errorResponse);
             }
 
             return context.Response.WriteAsync(result);
