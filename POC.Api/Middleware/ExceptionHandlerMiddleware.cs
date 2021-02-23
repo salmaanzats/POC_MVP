@@ -57,6 +57,8 @@ namespace POC.Api.Middleware
 
                 case NotFoundException notFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
+                    errorResponse.ValidationErrors.Add(exception.Message);
+                    result = JsonConvert.SerializeObject(errorResponse);
                     break;
 
                 case Exception ex:
