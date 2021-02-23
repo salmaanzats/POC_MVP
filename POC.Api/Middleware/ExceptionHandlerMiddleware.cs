@@ -48,16 +48,21 @@ namespace POC.Api.Middleware
                     errorResponse.ValidationErrors.AddRange(validationException.ValdationErrors);
                     result = JsonConvert.SerializeObject(errorResponse);
                     break;
+
                 case BadRequestException badRequestException:
                     httpStatusCode = HttpStatusCode.BadRequest;
                     errorResponse.ValidationErrors.Add(badRequestException.Message);
                     result = JsonConvert.SerializeObject(errorResponse);
                     break;
+
                 case NotFoundException notFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
                     break;
+
                 case Exception ex:
-                    httpStatusCode = HttpStatusCode.BadRequest;
+                    httpStatusCode = HttpStatusCode.InternalServerError;
+                    errorResponse.ValidationErrors.Add("Something went wrong");
+                    result = JsonConvert.SerializeObject(errorResponse);
                     break;
             }
 
