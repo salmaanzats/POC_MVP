@@ -2,7 +2,7 @@
   <TemplateData>
     <DefaultName>Entity name</DefaultName>
     <Name>Create Command</Name>
-    <Description>Provides a template to create CQRS Create Command Models using AutoMapper, MediatR and FluentValidation. </Description>
+    <Description>Provides a template to create CQRS Create Command Models using AutoMapper, MediatR and FluentValidation.</Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>
     <Icon>__TemplateIcon.ico</Icon>
