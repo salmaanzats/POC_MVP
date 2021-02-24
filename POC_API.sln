@@ -23,10 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POC.Persistence", "POC.Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "POC.Infrastructure", "POC.Infrastructure\POC.Infrastructure.csproj", "{9B395826-B910-4CB2-9E15-39BA1C621F15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGarments", "StarGarments\StarGarments.csproj", "{89A28029-337C-4B0B-B50D-6E2189BBE753}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarGarments.Service", "StarGarments.Service\StarGarments.Service.csproj", "{5A7B6D1A-1F8A-400C-A59F-B0A6E87D3B14}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
