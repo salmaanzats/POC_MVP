@@ -14,5 +14,5 @@
   <ItemGroup>
     <ProjectReference Include="..\POC.Domain\POC.Domain.csproj" />
   </ItemGroup>
-
+  
 </Project>
