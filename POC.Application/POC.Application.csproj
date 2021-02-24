@@ -14,5 +14,9 @@
   <ItemGroup>
     <ProjectReference Include="..\POC.Domain\POC.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Events\Commands\" />
+  </ItemGroup>
   
 </Project>
