@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateTemplate", "CQRS Temp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CQRS", "CQRS", "{C00EBD7B-FDF5-4593-B13E-7CE8B79C26BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateTemplate", "CQRS Templates\POC.ItemTemplates\UpdateTemplate\UpdateTemplate.csproj", "{8CFD224C-0232-4051-AE86-F69290B77325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateTemplate", "CQRS Templates\POC.ItemTemplates\UpdateTemplate\UpdateTemplate.csproj", "{8CFD224C-0232-4051-AE86-F69290B77325}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeleteCommand", "CQRS Templates\POC.ItemTemplates\DeleteCommand\DeleteCommand.csproj", "{15E288BF-2A20-46DC-BC33-AEAA68EDABC0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{8CFD224C-0232-4051-AE86-F69290B77325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CFD224C-0232-4051-AE86-F69290B77325}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CFD224C-0232-4051-AE86-F69290B77325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E288BF-2A20-46DC-BC33-AEAA68EDABC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E288BF-2A20-46DC-BC33-AEAA68EDABC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E288BF-2A20-46DC-BC33-AEAA68EDABC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E288BF-2A20-46DC-BC33-AEAA68EDABC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{05A18977-FD05-4F0D-BE22-09C2ABECD861} = {C00EBD7B-FDF5-4593-B13E-7CE8B79C26BC}
 		{8CFD224C-0232-4051-AE86-F69290B77325} = {C00EBD7B-FDF5-4593-B13E-7CE8B79C26BC}
+		{15E288BF-2A20-46DC-BC33-AEAA68EDABC0} = {C00EBD7B-FDF5-4593-B13E-7CE8B79C26BC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A29EFED-5C5E-4FDF-AF10-EB1DB38D3073}

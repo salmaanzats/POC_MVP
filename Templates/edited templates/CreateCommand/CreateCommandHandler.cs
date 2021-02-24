@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
 
 namespace $rootnamespace$.Create$fileinputname$
 {
@@ -16,9 +18,9 @@ namespace $rootnamespace$.Create$fileinputname$
             _mapper = mapper;
         }
 
-         public Task<Create$fileinputname$CommandResponse> Handle(Create$fileinputname$Command request, CancellationToken cancellationToken)
+         public async Task<Create$fileinputname$CommandResponse> Handle(Create$fileinputname$Command request, CancellationToken cancellationToken)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
