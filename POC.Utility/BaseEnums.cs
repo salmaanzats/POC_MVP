@@ -8,6 +8,7 @@ namespace POC.Utility
     {
         public enum Gender
         {
+            None = 0,
             Male = 1,
             Female
         }

@@ -24,6 +24,7 @@ namespace POC.Persistence.Repositories
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
+            // data loaded only for demo purpose
             var list = await _dbContext.Set<T>().ToListAsync();
             return list;
         }
