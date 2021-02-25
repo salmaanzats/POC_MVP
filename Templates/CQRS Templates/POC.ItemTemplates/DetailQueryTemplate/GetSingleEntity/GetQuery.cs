@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DetailQueryTemplate.GetSingleEntity
 {
-    class GetQuery
+    public class GetQuery
     {
     }
 }
