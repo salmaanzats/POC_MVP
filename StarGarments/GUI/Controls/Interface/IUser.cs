@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using POC.Domain.Entitities;
+using System;
 
 namespace StarGarments.GUI.Controls.Interface
 {
     public interface IUser
     {
+        public event EventHandler OnUpdateClickEvent;
+        public event EventHandler OnCreateClickEvent;
+        public event EventHandler OnSaveClickEvent;
+
+        void PatchFormValues(User user);
+        void Clear();
+        public User GetUser { get; }
     }
 }

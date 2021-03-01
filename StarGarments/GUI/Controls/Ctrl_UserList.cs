@@ -13,11 +13,9 @@ namespace StarGarments_POC.GUI.Controls
     {
         public event EventHandler DoubleClickEvent;
 
-        public Ctrl_User()
+        public Ctrl_UserList()
         {
             InitializeComponent();
-            Tag = new UserPresenter(this);
-
             listBox1.DoubleClick += (s, a) => OnDoubleClick();
         }
 

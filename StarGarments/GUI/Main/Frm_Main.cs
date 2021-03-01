@@ -7,13 +7,18 @@ namespace StarGarments_POC.GUI.Main
     public partial class Frm_Main : Form
     {
         Ctrl_User userView;
+        Ctrl_UserList userListView;
+
         public Frm_Main()
         {
             InitializeComponent();
-            Ctrl_UserList userListView = new Ctrl_UserList();
-            userView = new Ctrl_User();
-            userView.Dock = DockStyle.Fill;
+            userListView = new Ctrl_UserList();
+            userView = new Ctrl_User(userListView);
+
+            userListView.Dock = DockStyle.Fill;
             splitContainer1.Panel1.Controls.Add(userListView);
+            splitContainer1.Panel2.Controls.Add(userView);
+
         }
 
         public void ShowUserView()

@@ -1,37 +1,60 @@
-﻿using StarGarments.Service.Service.User;
+﻿using StarGarments.GUI.Controls.Interface;
+using StarGarments.Service.Service.User;
 using StarGarments_POC.GUI.Controls.Interface;
 using System;
-using System.Windows.Forms;
 
 namespace StarGarments.Presenter.User
 {
     public class UserPresenter
     {
-        public IUserList userView;
+        public IUserList userListView;
+        public IUser userView;
         private IUserService userService;
 
-        public UserPresenter(IUserList userView)
+        public UserPresenter(IUserList userListView, IUser userView)
         {
-            this.userView = userView;
             this.userService = new UserService();
-            userView.Load += ViewOnLoad;
-            userView.DoubleClickEvent += OnDoubleClick;
+
+            this.userListView = userListView;
+            this.userView = userView;
+
+            userListView.Load += ViewOnLoad;
+            userListView.DoubleClickEvent += OnDoubleClick;
+            userView.OnUpdateClickEvent += OnUpdateClick;
+            userView.OnCreateClickEvent += OnCreateClick;
+            userView.OnSaveClickEvent += OnSaveClick;
         }
 
         public void AddUsersToListView(POC.Domain.Entitities.User user)
         {
-            userView.AddItem(user);
+            userListView.AddItem(user);
         }
 
         private async void ViewOnLoad(object sender, EventArgs eventArgs)
         {
-            await userView.AddListDataSource(await this.userService.LoadUsersAsync());
+            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
         }
 
         private async void OnDoubleClick(object sender, EventArgs eventArgs)
         {
-            var ss = userView.SelectedItem;
-            MessageBox.Show(ss.FirstName, ss.LastName);
+            this.userView.PatchFormValues(userListView.SelectedItem);
+        }
+
+        private async void OnUpdateClick(object sender, EventArgs eventArgs)
+        {
+            await this.userService.UpdateUsersAsync(this.userView.GetUser);
+            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
+        }
+
+        private async void OnCreateClick(object sender, EventArgs eventArgs)
+        {
+            userView.Clear();
+        }
+
+        private async void OnSaveClick(object sender, EventArgs eventArgs)
+        {
+            await this.userService.SaveUserAsync(this.userView.GetUser);
+            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
         }
     }
 }

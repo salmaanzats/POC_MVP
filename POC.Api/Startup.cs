@@ -25,18 +25,18 @@ namespace POC.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpCacheHeaders((expirationModelOptions) =>
-            {
-                expirationModelOptions.MaxAge =120;
-                expirationModelOptions.CacheLocation = Marvin.Cache.Headers.CacheLocation.Public;
+            //services.AddHttpCacheHeaders((expirationModelOptions) =>
+            //{
+            //    expirationModelOptions.MaxAge =120;
+            //    expirationModelOptions.CacheLocation = Marvin.Cache.Headers.CacheLocation.Public;
 
-            },
-            (validationModelOption) =>
-            {
-                validationModelOption.MustRevalidate = true;
-            });
+            //},
+            //(validationModelOption) =>
+            //{
+            //    validationModelOption.MustRevalidate = true;
+            //});
 
-            services.AddResponseCaching();
+            //services.AddResponseCaching();
 
             AddSwagger(services);
 
@@ -69,9 +69,9 @@ namespace POC.Api
             }
 
             //does not valdidate ETag when resource is updated
-            app.UseResponseCaching();
+            //app.UseResponseCaching();
 
-            app.UseHttpCacheHeaders();
+            //app.UseHttpCacheHeaders();
 
             app.UseRouting();
 

@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using static POC.Utility.BaseEnums;
 
 namespace POC.Domain.Entitities
 {
     public class User
     {
-        public Guid Id { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Address { get; private set; }
-        public string School { get; private set; }
-        public Gender Gender { get; private set; }
+        public Guid Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string School { get; set; }
+        public Gender Gender { get; set; }
 
 
         public User Create(string firstName, string lastName, string address, string school, Gender gender)

@@ -2,6 +2,7 @@
 using StarGarments.Service.Shared.Models;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace StarGarments.Service.Service.User
@@ -22,8 +23,32 @@ namespace StarGarments.Service.Service.User
                 client.DefaultRequestHeaders.Add("Get", "application/json");
                 var response = await client.GetAsync("https://localhost:44342/api/users");
                 var data = await response.Content.ReadAsStringAsync();
-                var dd = JsonConvert.DeserializeObject<ReponseModel<List<POC.Domain.Entitities.User>>>(data);
-                return users = dd.data;
+                var res = JsonConvert.DeserializeObject<ReponseModel<List<POC.Domain.Entitities.User>>>(data);
+                return users = res.Data;
+            }
+        }
+
+        public async Task UpdateUsersAsync(POC.Domain.Entitities.User user)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var url = $"https://localhost:44342/api/users/{user.Id}";
+                client.DefaultRequestHeaders.Add("PUT", "application/json");
+                var json = JsonConvert.SerializeObject(user);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PutAsync(url, content);
+            }
+        }
+
+        public async Task SaveUserAsync(POC.Domain.Entitities.User user)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var url = $"https://localhost:44342/api/users";
+                client.DefaultRequestHeaders.Add("POST", "application/json");
+                var json = JsonConvert.SerializeObject(user);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync(url, content);
             }
         }
     }
