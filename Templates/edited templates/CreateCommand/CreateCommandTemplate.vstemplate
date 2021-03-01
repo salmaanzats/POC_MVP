@@ -1,8 +1,8 @@
 <VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
   <TemplateData>
-    <DefaultName>Entity name</DefaultName>
+    <DefaultName>EntityName</DefaultName>
     <Name>Create Command</Name>
-    <Description>Provides a template to create CQRS Create Command Models using AutoMapper, MediatR and FluentValidation. </Description>
+    <Description>Provides a template to create CQRS Create Command Models using AutoMapper, MediatR and FluentValidation.</Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>
     <Icon>__TemplateIcon.ico</Icon>
