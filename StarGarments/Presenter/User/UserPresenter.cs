@@ -23,6 +23,7 @@ namespace StarGarments.Presenter.User
             userView.OnUpdateClickEvent += OnUpdateClick;
             userView.OnCreateClickEvent += OnCreateClick;
             userView.OnSaveClickEvent += OnSaveClick;
+            userView.OnDeleteClickEvent += OnDeleteClick;
         }
 
         public void AddUsersToListView(POC.Domain.Entitities.User user)
@@ -54,6 +55,13 @@ namespace StarGarments.Presenter.User
         private async void OnSaveClick(object sender, EventArgs eventArgs)
         {
             await this.userService.SaveUserAsync(this.userView.GetUser);
+            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
+        }
+
+        private async void OnDeleteClick(object sender, EventArgs eventArgs)
+        {
+            await this.userService.DeleteUserAsync(this.userView.GetUser.Id);
+            userView.Clear();
             await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
         }
     }

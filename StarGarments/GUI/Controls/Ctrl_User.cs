@@ -14,6 +14,7 @@ namespace StarGarments.GUI.Controls
         public event EventHandler OnUpdateClickEvent;
         public event EventHandler OnCreateClickEvent;
         public event EventHandler OnSaveClickEvent;
+        public event EventHandler OnDeleteClickEvent;
 
         public IUserList userList;
         public Guid UserId;
@@ -28,6 +29,7 @@ namespace StarGarments.GUI.Controls
             btnUpdate.Click += (s, a) => OnUpdateClick();
             btnCreate.Click += (s, a) => OnCreateClick();
             btnSave.Click += (s, a) => OnSaveClick();
+            btnDelete.Click += (s, a) => OnDeleteClick();
         }
 
         public User GetUser
@@ -81,6 +83,12 @@ namespace StarGarments.GUI.Controls
         protected virtual void OnSaveClick()
         {
             var handler = OnSaveClickEvent;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnDeleteClick()
+        {
+            var handler = OnDeleteClickEvent;
             if (handler != null) handler(this, EventArgs.Empty);
         }
     }

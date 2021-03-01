@@ -8,6 +8,7 @@ namespace StarGarments.GUI.Controls.Interface
         public event EventHandler OnUpdateClickEvent;
         public event EventHandler OnCreateClickEvent;
         public event EventHandler OnSaveClickEvent;
+        public event EventHandler OnDeleteClickEvent;
 
         void PatchFormValues(User user);
         void Clear();

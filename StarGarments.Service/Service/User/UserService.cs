@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using StarGarments.Service.Service.Base;
 using StarGarments.Service.Shared.Models;
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StarGarments.Service.Service.User
@@ -11,45 +10,32 @@ namespace StarGarments.Service.Service.User
     {
         private List<POC.Domain.Entitities.User> users = new List<POC.Domain.Entitities.User>();
         public IEnumerable<POC.Domain.Entitities.User> Users { get { return users; } }
+        private UserServiceRepository userServiceRepository;
 
         public UserService()
         {
+            userServiceRepository = new UserServiceRepository();
         }
 
         public async Task<List<POC.Domain.Entitities.User>> LoadUsersAsync()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Get", "application/json");
-                var response = await client.GetAsync("https://localhost:44342/api/users");
-                var data = await response.Content.ReadAsStringAsync();
-                var res = JsonConvert.DeserializeObject<ReponseModel<List<POC.Domain.Entitities.User>>>(data);
-                return users = res.Data;
-            }
+            var res = await userServiceRepository.Get<ReponseModel<List<POC.Domain.Entitities.User>>>();
+            return users = res.Data;
         }
 
         public async Task UpdateUsersAsync(POC.Domain.Entitities.User user)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                var url = $"https://localhost:44342/api/users/{user.Id}";
-                client.DefaultRequestHeaders.Add("PUT", "application/json");
-                var json = JsonConvert.SerializeObject(user);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PutAsync(url, content);
-            }
+            await userServiceRepository.Update<POC.Domain.Entitities.User>(user.Id,user);
         }
 
         public async Task SaveUserAsync(POC.Domain.Entitities.User user)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                var url = $"https://localhost:44342/api/users";
-                client.DefaultRequestHeaders.Add("POST", "application/json");
-                var json = JsonConvert.SerializeObject(user);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PostAsync(url, content);
-            }
+            await userServiceRepository.Create<POC.Domain.Entitities.User>(user);
+        }
+
+        public async Task DeleteUserAsync(Guid id)
+        {
+            await userServiceRepository.Delete(id);
         }
     }
 }
