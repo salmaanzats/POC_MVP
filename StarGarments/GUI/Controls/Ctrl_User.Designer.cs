@@ -40,6 +40,7 @@ namespace StarGarments.GUI.Controls
             this.label4 = new System.Windows.Forms.Label();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -145,10 +146,21 @@ namespace StarGarments.GUI.Controls
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnDelete.Location = new System.Drawing.Point(58, 343);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(150, 50);
+            this.btnDelete.TabIndex = 11;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            // 
             // Ctrl_User
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.txtSchool);
             this.Controls.Add(this.School);
@@ -180,5 +192,6 @@ namespace StarGarments.GUI.Controls
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
