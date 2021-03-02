@@ -30,6 +30,7 @@ namespace POC.Api.Controllers
         [HttpGet(Name = "GetAllUsers")]
         //[ResponseCache(Duration = 120)]
         [ProducesResponseType(typeof(SuccessResponse<IEnumerable<UserViewModel>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 120)]
         //[HttpCacheValidation(MustRevalidate = true)]
         public async Task<ActionResult<SuccessResponse<IEnumerable<UserViewModel>>>> GetAllUsers()
@@ -43,6 +44,7 @@ namespace POC.Api.Controllers
         //[ResponseCache(Duration = 120)]
         [ProducesResponseType(typeof(SuccessResponse<UserDetailViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 120)]
         //[HttpCacheValidation(MustRevalidate = true)]
         public async Task<ActionResult<SuccessResponse<UserDetailViewModel>>> GetUser(Guid id)
@@ -69,6 +71,7 @@ namespace POC.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<SuccessResponse<CreateUserCommandResponse>>> UpdateUser(Guid id, [FromBody] UpdateUserCommand updateUserCommand)
         {
             updateUserCommand.Id = id;
@@ -80,6 +83,7 @@ namespace POC.Api.Controllers
         [HttpDelete("{id}", Name = "DeleteUser")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(Guid id)
         {
             var deleteUserCommand = new DeleteUserCommand() { Id = id };
