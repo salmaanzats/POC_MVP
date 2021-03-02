@@ -6,11 +6,11 @@ namespace StarGarments.Service.Service.User
 {
     public interface IUserService
     {
-        IEnumerable<POC.Domain.Entitities.User> Users { get; }
+        IEnumerable<Stargarments.Domain.Entities.User> Users { get; }
 
-        Task<List<POC.Domain.Entitities.User>> LoadUsersAsync();
-        Task UpdateUsersAsync(POC.Domain.Entitities.User user);
-        Task SaveUserAsync(POC.Domain.Entitities.User user);
+        Task<List<Stargarments.Domain.Entities.User>> LoadUsersAsync();
+        Task UpdateUsersAsync(Stargarments.Domain.Entities.User user);
+        Task SaveUserAsync(Stargarments.Domain.Entities.User user);
         Task DeleteUserAsync(Guid id);
     }
 }

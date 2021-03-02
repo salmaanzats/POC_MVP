@@ -26,7 +26,7 @@ namespace StarGarments.Presenter.User
             userView.OnDeleteClickEvent += OnDeleteClick;
         }
 
-        public void AddUsersToListView(POC.Domain.Entitities.User user)
+        public void AddUsersToListView(Stargarments.Domain.Entities.User user)
         {
             userListView.AddItem(user);
         }
