@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.ApplicationBlocks.Data;
 using Microsoft.Extensions.Configuration;
+using POC.Application.Responses;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,20 +12,22 @@ using System.Threading.Tasks;
 
 namespace POC.Application.Features.Garment.GetGarmentTypeList
 {
-    public class GetGarmentTypeListQueryHandler : IRequestHandler<GetGarmentTypeListQuery, IEnumerable<GarmentTypeListViewModel>>
+    public class GetGarmentTypeListQueryHandler : IRequestHandler<GetGarmentTypeListQuery, SuccessResponse<IEnumerable<GarmentTypeListViewModel>>>
     {
         private readonly IMapper _mapper;
-        private readonly string _conString;
+        private readonly string _opsConnString;
+
 
         public GetGarmentTypeListQueryHandler(IMapper mapper, IConfiguration configuration)
         {
             _mapper = mapper;
-            _conString = configuration.GetConnectionString("OPS-ADOConnection");
+            _opsConnString = configuration.GetConnectionString("OPS-ADOConnection");
+
         }
 
-        public async Task<IEnumerable<GarmentTypeListViewModel>> Handle(GetGarmentTypeListQuery request, CancellationToken cancellationToken)
+        public async Task<SuccessResponse<IEnumerable<GarmentTypeListViewModel>>> Handle(GetGarmentTypeListQuery request, CancellationToken cancellationToken)
         {
-            using (var conn = new SqlConnection(_conString))
+            using (var conn = new SqlConnection(_opsConnString))
             {
                 try
                 {
@@ -40,8 +43,13 @@ namespace POC.Application.Features.Garment.GetGarmentTypeList
 
                     var list = _mapper.Map<IEnumerable<GarmentTypeListViewModel>>(dt.CreateDataReader());
 
-                    return list;
 
+                    var response = new SuccessResponse<IEnumerable<GarmentTypeListViewModel>>()
+                    {
+                        TotalRecordCount = list.Count(),
+                        Data = list
+                    };
+                    return response;
                 }
                 catch (System.Exception ex)
                 {

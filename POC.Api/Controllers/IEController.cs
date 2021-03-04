@@ -36,7 +36,17 @@ namespace POC.Api.Controllers
         [HttpGet("garment/style", Name = "GetAllIEStyle")]
         [ProducesResponseType(typeof(SuccessResponse<IEnumerable<StyleListViewModel>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<SuccessResponse<IEnumerable<StyleListViewModel>>>> GetAllStles()
+        public async Task<ActionResult<SuccessResponse<IEnumerable<StyleListViewModel>>>> GetAllStyles()
+        {
+            var viewModel = await _mediator.Send(new GetStyleListQuery());
+            return Ok(viewModel);
+        }
+
+
+        [HttpGet("garment/style", Name = "GetAllIEStyleByStyleNumber")]
+        [ProducesResponseType(typeof(SuccessResponse<IEnumerable<StyleListViewModel>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<SuccessResponse<IEnumerable<StyleListViewModel>>>> GetAllIEStyleByStyleNumber()
         {
             var viewModel = await _mediator.Send(new GetStyleListQuery());
             return Ok(viewModel);
