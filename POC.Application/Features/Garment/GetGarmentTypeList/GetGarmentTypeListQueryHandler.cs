@@ -21,7 +21,9 @@ namespace POC.Application.Features.Garment.GetGarmentTypeList
         public GetGarmentTypeListQueryHandler(IMapper mapper, IConfiguration configuration)
         {
             _mapper = mapper;
+            //_opsConnString = new System.MyUtil.Strings.Crypto().Decrypt(configuration.GetConnectionString("OPS-ADOConnection"));
             _opsConnString = configuration.GetConnectionString("OPS-ADOConnection");
+
 
         }
 

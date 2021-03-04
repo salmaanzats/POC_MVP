@@ -29,8 +29,17 @@ namespace POC.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<SuccessResponse<IEnumerable<object>>>> GetAllUsers()
         {
+            try
+            {
+
             var viewModel = await _mediator.Send(new GetGarmentTypeListQuery());
             return Ok(viewModel);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
 

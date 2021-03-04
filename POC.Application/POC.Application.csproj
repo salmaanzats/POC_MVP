@@ -18,5 +18,11 @@
   <ItemGroup>
     <ProjectReference Include="..\POC.Domain\POC.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.MyUtil">
+      <HintPath>..\..\..\..\..\Frameworks\ERP_Service\ERPService\Bin\System.MyUtil.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   
 </Project>
