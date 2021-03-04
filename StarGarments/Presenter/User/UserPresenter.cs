@@ -2,6 +2,8 @@
 using StarGarments.Service.Service.User;
 using StarGarments_POC.GUI.Controls.Interface;
 using System;
+using System.Collections.Generic;
+using System.Runtime.Caching;
 
 namespace StarGarments.Presenter.User
 {
@@ -10,11 +12,18 @@ namespace StarGarments.Presenter.User
         public IUserList userListView;
         public IUser userView;
         private IUserService userService;
+        //public MemoryCache cache;
+        //public CacheItemPolicy policy;
 
         public UserPresenter(IUserList userListView, IUser userView)
         {
-            this.userService = new UserService();
+            //cache = MemoryCache.Default;
+            //policy = new CacheItemPolicy();
 
+            //policy.AbsoluteExpiration =
+            //       DateTimeOffset.Now.AddSeconds(3600);
+
+            this.userService = new UserService();
             this.userListView = userListView;
             this.userView = userView;
 
@@ -26,14 +35,29 @@ namespace StarGarments.Presenter.User
             userView.OnDeleteClickEvent += OnDeleteClick;
         }
 
-        public void AddUsersToListView(POC.Domain.Entitities.User user)
+        public void AddUsersToListView(Stargarments.Domain.Entities.User user)
         {
             userListView.AddItem(user);
         }
 
         private async void ViewOnLoad(object sender, EventArgs eventArgs)
         {
-            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
+            GetAllUsers();
+        }
+
+        private async void GetAllUsers()
+        {
+            //var userList = new List<Stargarments.Domain.Entities.User>();
+            //userList = cache.Get("userList", null) as List<Stargarments.Domain.Entities.User>;
+            //if (userList == null)
+            //{
+
+            //    userList = await this.userService.LoadUsersAsync();
+            //    cache.Add("userList", userList, policy);
+            //}
+
+            var userList = await this.userService.LoadUsersAsync();
+            await userListView.AddListDataSource(userList);
         }
 
         private async void OnDoubleClick(object sender, EventArgs eventArgs)
@@ -44,7 +68,8 @@ namespace StarGarments.Presenter.User
         private async void OnUpdateClick(object sender, EventArgs eventArgs)
         {
             await this.userService.UpdateUsersAsync(this.userView.GetUser);
-            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
+            // MemoryCache.Default.Remove("userlist");
+            GetAllUsers();
         }
 
         private async void OnCreateClick(object sender, EventArgs eventArgs)
@@ -55,14 +80,14 @@ namespace StarGarments.Presenter.User
         private async void OnSaveClick(object sender, EventArgs eventArgs)
         {
             await this.userService.SaveUserAsync(this.userView.GetUser);
-            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
+            GetAllUsers();
         }
 
         private async void OnDeleteClick(object sender, EventArgs eventArgs)
         {
             await this.userService.DeleteUserAsync(this.userView.GetUser.Id);
             userView.Clear();
-            await userListView.AddListDataSource(await this.userService.LoadUsersAsync());
+            GetAllUsers();
         }
     }
 }

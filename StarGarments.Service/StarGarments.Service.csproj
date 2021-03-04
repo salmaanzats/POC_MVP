@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\POC.Domain\POC.Domain.csproj" />
+    <ProjectReference Include="..\Stargarments.Domain\Stargarments.Domain.csproj" />
   </ItemGroup>
 
 </Project>

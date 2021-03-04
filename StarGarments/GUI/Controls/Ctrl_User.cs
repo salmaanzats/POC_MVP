@@ -1,4 +1,4 @@
-﻿using POC.Domain.Entitities;
+﻿using Stargarments.Domain.Entities;
 using StarGarments.GUI.Controls.Interface;
 using StarGarments.Presenter.User;
 using StarGarments_POC.GUI.Controls;
@@ -32,7 +32,7 @@ namespace StarGarments.GUI.Controls
             btnDelete.Click += (s, a) => OnDeleteClick();
         }
 
-        public User GetUser
+        public Stargarments.Domain.Entities.User GetUser
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿using POC.Domain.Entitities;
+﻿using Stargarments.Domain.Entities;
 using System;
 
 namespace StarGarments.GUI.Controls.Interface

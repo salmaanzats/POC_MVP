@@ -1,5 +1,4 @@
-﻿using POC.Domain.Entitities;
-using StarGarments.Presenter.User;
+﻿using Stargarments.Domain.Entities;
 using StarGarments_POC.GUI.Controls.Interface;
 using System;
 using System.Collections;
@@ -24,7 +23,7 @@ namespace StarGarments_POC.GUI.Controls
             get { return listBox1.Items; }
         }
 
-        public User SelectedItem
+        public Stargarments.Domain.Entities.User SelectedItem
         {
             get { return (User)listBox1.SelectedItem; }
         }

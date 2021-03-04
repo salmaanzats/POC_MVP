@@ -1,4 +1,4 @@
-﻿using POC.Domain.Entitities;
+﻿using Stargarments.Domain.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
