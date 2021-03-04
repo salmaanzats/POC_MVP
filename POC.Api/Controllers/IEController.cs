@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POC.Application.Features.Garment.GetGarmentTypeList;
+using POC.Application.Features.SMV.Command.GetSMVBreakDownVersion;
 using POC.Application.Features.Styles.GetStyleList;
 using POC.Application.Responses;
 using System;
@@ -43,12 +44,12 @@ namespace POC.Api.Controllers
         }
 
 
-        [HttpGet("garment/style", Name = "GetAllIEStyleByStyleNumber")]
-        [ProducesResponseType(typeof(SuccessResponse<IEnumerable<StyleListViewModel>>), StatusCodes.Status200OK)]
+        [HttpGet("garment/breakdown/{versionHDID:int}", Name = "GetBreakDownData")]
+        [ProducesResponseType(typeof(SuccessResponse<SMVBreakDownVersionViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<SuccessResponse<IEnumerable<StyleListViewModel>>>> GetAllIEStyleByStyleNumber()
+        public async Task<ActionResult<SuccessResponse<SMVBreakDownVersionViewModel>>> GetBreakDownData(int versionHDID)
         {
-            var viewModel = await _mediator.Send(new GetStyleListQuery());
+            var viewModel = await _mediator.Send(new GetSMVBreakDownVersionQuery() { VersionHDID = versionHDID });
             return Ok(viewModel);
         }
     }
