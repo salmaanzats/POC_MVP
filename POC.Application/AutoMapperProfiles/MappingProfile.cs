@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using POC.Application.Features.Garment.GetGarmentTypeList;
+using POC.Application.Features.Styles.GetStyleList;
 using POC.Application.Features.Users.Command.CreateUser;
 using POC.Application.Features.Users.Command.UpdateUser;
 using POC.Application.Features.Users.Queries.GetUserDetail;
@@ -26,6 +27,9 @@ namespace POC.Application.AutoMapperProfiles
             CreateMap<IDataRecord, GarmentTypeListViewModel>()
                 .ForMember(des => des.GarmentTypeId, src => src.MapFrom(s => s["nIEGmtTypeID"]))
                 .ForMember(des => des.GarmentType, src => src.MapFrom(s => s["cGmtType"]));
+
+            CreateMap<IDataRecord, StyleListViewModel>()
+               .ForMember(des => des.StyleNumber, src => src.MapFrom(s => s["Style"]));
         }
     }
 }
