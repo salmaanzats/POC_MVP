@@ -6,4 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StarGarments.Service\StarGarments.Service.csproj" />
+  </ItemGroup>
+
 </Project>
