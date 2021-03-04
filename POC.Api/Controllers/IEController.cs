@@ -27,7 +27,7 @@ namespace POC.Api.Controllers
         [HttpGet("garment/types", Name = "GetAllIEGarmentTypes")]
         [ProducesResponseType(typeof(SuccessResponse<IEnumerable<GarmentTypeListViewModel>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<SuccessResponse<IEnumerable<object>>>> GetAllUsers()
+        public async Task<ActionResult<SuccessResponse<IEnumerable<GarmentTypeListViewModel>>>> GetAllUsers()
         {
             try
             {
