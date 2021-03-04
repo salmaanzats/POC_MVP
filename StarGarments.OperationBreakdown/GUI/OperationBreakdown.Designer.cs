@@ -32,6 +32,8 @@ namespace StarGarments.OperationBreakdown.GUI
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbGarment_Type = new System.Windows.Forms.ComboBox();
+            this.cmbStyle = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -62,11 +64,32 @@ namespace StarGarments.OperationBreakdown.GUI
             this.cmbGarment_Type.Size = new System.Drawing.Size(404, 29);
             this.cmbGarment_Type.TabIndex = 2;
             // 
+            // cmbStyle
+            // 
+            this.cmbStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cmbStyle.FormattingEnabled = true;
+            this.cmbStyle.Location = new System.Drawing.Point(162, 39);
+            this.cmbStyle.Name = "cmbStyle";
+            this.cmbStyle.Size = new System.Drawing.Size(404, 29);
+            this.cmbStyle.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(113, 42);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 21);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Style";
+            // 
             // OperationBreakdownForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 409);
+            this.Controls.Add(this.cmbStyle);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbGarment_Type);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -83,5 +106,7 @@ namespace StarGarments.OperationBreakdown.GUI
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbGarment_Type;
         private System.Windows.Forms.ComboBox cmbGarmentType;
+        private System.Windows.Forms.ComboBox cmbStyle;
+        private System.Windows.Forms.Label label3;
     }
 }

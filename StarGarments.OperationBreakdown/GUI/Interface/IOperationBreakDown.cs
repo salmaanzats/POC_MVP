@@ -8,5 +8,6 @@ namespace StarGarments.OperationBreakdown.GUI.Interface
     {
         public event EventHandler OnLoadEvent;
         void AddGarmentTypesToDataSource(List<GarmentTypeModel> item);
+        void AddStylesToDataSource(List<StyleModel> item);
     }
 }

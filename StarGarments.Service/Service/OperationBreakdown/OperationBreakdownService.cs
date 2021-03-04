@@ -21,5 +21,11 @@ namespace StarGarments.Service.Service.OperationBreakdown
             var res = await operationBreakdownRepository.Get<ReponseModel<List<GarmentTypeModel>>>();
             return res.Data;
         }
+
+        public async Task<List<StyleModel>> LoadStylesAsync()
+        {
+            var res = await operationBreakdownRepository.GetStyles<ReponseModel<List<StyleModel>>>();
+            return res.Data;
+        }
     }
 }

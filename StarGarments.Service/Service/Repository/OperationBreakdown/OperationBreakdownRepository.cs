@@ -8,10 +8,8 @@ namespace StarGarments.Service.Service.Repository.OperationBreakdown
     public class OperationBreakdownRepository : IOperationBreakdownRepository
     {
         private HttpServiceRepository httpServiceRepository;
-        public string CreateEndPoint { get; set; } = "garmenttype";
-        public string UpdateEndPoint { get; set; } = "garmenttype/";
-        public string GetEndPoint { get; set; } = "ie/garment/types";
-        public string DeleteEndPoint { get; set; } = "garmenttype/";
+        public string GetGarmentTypesEndPoint { get; set; } = "ie/garment/types";
+        public string GetStylesEndPoint { get; set; } = "ie/garment/style";
 
         public OperationBreakdownRepository()
         {
@@ -30,7 +28,7 @@ namespace StarGarments.Service.Service.Repository.OperationBreakdown
 
         public async Task<T> Get<T>()
         {
-            return await httpServiceRepository.Get<T>(GetEndPoint);
+            return await httpServiceRepository.Get<T>(GetGarmentTypesEndPoint);
         }
 
         public Task<T> GetById<T>(Guid id)
@@ -41,6 +39,11 @@ namespace StarGarments.Service.Service.Repository.OperationBreakdown
         public Task Update<T>(Guid id, T request)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<T> GetStyles<T>()
+        {
+            return await httpServiceRepository.Get<T>(GetStylesEndPoint);
         }
     }
 }

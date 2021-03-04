@@ -29,5 +29,12 @@ namespace StarGarments.OperationBreakdown.GUI
             cmbGarment_Type.DisplayMember = "GarmentType";
             cmbGarment_Type.ValueMember = "GarmentTypeId";
         }
+
+        public void AddStylesToDataSource(List<StyleModel> Item)
+        {
+            cmbStyle.DataSource = Item;
+            cmbStyle.DisplayMember = "StyleNumber";
+            cmbStyle.ValueMember = "StyleNumber";
+        }
     }
 }

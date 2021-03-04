@@ -19,7 +19,14 @@ namespace StarGarments.OperationBreakdown.Presenter
 
         private async void onLoad(object sender, EventArgs eventArgs)
         {
+            GetStyles();
             GetAllGarmentTypes();
+        }
+
+        private async void GetStyles()
+        {
+            var styles = await this.operationBreakdownService.LoadStylesAsync();
+            operationView.AddStylesToDataSource(styles);
         }
 
         private async void GetAllGarmentTypes()
