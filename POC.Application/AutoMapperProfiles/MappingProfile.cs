@@ -80,7 +80,15 @@ namespace POC.Application.AutoMapperProfiles
                  .ForPath(des => des.OperationMaster.SMVType, src => src.MapFrom(s => s["csmvType"].ToString().Trim()))
                  .ForPath(des => des.OperationMaster.OperationID, src => src.MapFrom(s => s["nOperationID"]))
                     .ForPath(des => des.OperationMaster.DeptCode.DepartmentCode, src => src.MapFrom(s => s["cDep_Code"].ToString().Trim()))
-                    .ForPath(des => des.OperationMaster.DeptCode.DeptID, src => src.MapFrom(s => s["nDepartmentID"]));
+                    .ForPath(des => des.OperationMaster.DeptCode.DeptID, src => src.MapFrom(s => s["nDepartmentID"]))
+                 .ForMember(des => des.NewMcCode, src => src.MapFrom(s => new IEData()))
+                 .ForMember(des => des.NewDepCode, src => src.MapFrom(s => new SewingDepartment()))
+                 .ForMember(des => des.Indicator, src => src.MapFrom(s => string.Empty));
+
+
+
+
+
 
         }
     }

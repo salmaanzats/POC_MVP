@@ -34,12 +34,12 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public IEData McCode { get; set; }
         public IEData NewMcCode { get; set; }
         public OperationMaster OperationMaster { get; set; }
-        //public SewingDepartment NewDepCode { get; set; }
+        public SewingDepartment NewDepCode { get; set; }
         public string Remark { get; set; }
         public string OPerationDescription { get; set; }
         public int OperationSequnce { get; set; }
 
-        //public string Indicator { get; set; }
+        public string Indicator { get; set; }
         public bool IsNewlyAdded { get; set; } = false;
     }
 
