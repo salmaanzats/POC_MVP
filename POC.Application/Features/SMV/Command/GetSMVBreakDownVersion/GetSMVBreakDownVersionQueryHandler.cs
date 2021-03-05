@@ -42,6 +42,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
                     da.Fill(ds);
 
                     DataTable dt = ds.Tables[0];
+                    DataTable dt1 = ds.Tables[1];
 
                     var list = _mapper.Map<SMVBreakDownVersionViewModel>(dt.CreateDataReader());
 
