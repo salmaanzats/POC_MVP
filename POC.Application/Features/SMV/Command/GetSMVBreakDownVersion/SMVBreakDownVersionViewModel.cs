@@ -15,16 +15,16 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         //public MasterJobDetail JobDetails { get; set; }
         public Style Style { get; set; }
         public Accounts Account { get; set; }
-        //public GarmentTypes GarmentTypes { get; set; }
-        //public FabricContent FabContent { get; set; }
-        //public string Remarks { get; set; }
-        //public string SketchPath { get; set; }
-        //public int VersionHDID { get; set; }
-        //public string Description { get; set; }
+        public GarmentTypes GarmentTypes { get; set; }
+        public FabricContent FabContent { get; set; }
+        public string Remarks { get; set; }
+        public string SketchPath { get; set; }
+        public int VersionHDID { get; set; }
+        public string Description { get; set; }
 
-        //public SampleType SampleType { get; set; }
+        public SampleType SampleType { get; set; }
 
-        //public IEnumerable<SMVBreakDownDetails> SMVBreakDownDetail { get; set; }
+        public IEnumerable<SMVBreakDownDetails> SMVBreakDownDetail { get; set; }
     }
 
     public class SMVBreakDownDetails 
@@ -32,14 +32,14 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public bool IsSelected { get; set; }
         public SMVBreakDownDTGroupHD SMVBreakDownDTGroupHD { get; set; }
         public IEData McCode { get; set; }
-        public IEData NewMcCode { get; set; }
-        public OperationMaster OperationMaster { get; set; }
-        public SewingDepartment NewDepCode { get; set; }
+        //public IEData NewMcCode { get; set; }
+        //public OperationMaster OperationMaster { get; set; }
+        //public SewingDepartment NewDepCode { get; set; }
         public string Remark { get; set; }
         public string OPerationDescription { get; set; }
         public int OperationSequnce { get; set; }
 
-        public string Indicator { get; set; }
+        //public string Indicator { get; set; }
         public bool IsNewlyAdded { get; set; } = false;
     }
 
@@ -455,7 +455,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public string Content { get; set; }
         public string HSCode { get; set; }
 
-        public User EnterUser { get; set; }
+        //public User EnterUser { get; set; }
     }
 
     public class SewingDepartment

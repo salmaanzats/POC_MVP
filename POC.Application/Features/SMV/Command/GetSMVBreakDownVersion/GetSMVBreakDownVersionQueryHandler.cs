@@ -34,7 +34,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
                     SqlDataAdapter da = new SqlDataAdapter();
                     SqlCommand cmd = conn.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@In_VersionHDID", SqlDbType.Int).Value = 136697;// request.VersionHDID;
+                    cmd.Parameters.Add("@In_VersionHDID", SqlDbType.Int).Value = 614646;// request.VersionHDID;
                     cmd.CommandText = "Sp_IE_GetBreakDownByVertionHDID";
 
                     da.SelectCommand = cmd;
@@ -42,10 +42,15 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
 
                     da.Fill(ds);
 
-                    DataTable dt = ds.Tables[0];
-                    DataTable dt1 = ds.Tables[1];
+                    DataTable dtHeader = ds.Tables[0];
+                    DataTable dtDetails = ds.Tables[1];
+                    DataTable dtReviewData = ds.Tables[2];
 
-                    var smvBDHeader = (_mapper.Map<IEnumerable<SMVBreakDownVersionViewModel>>(dt.CreateDataReader())).FirstOrDefault();
+                    var smvBDHeader = (_mapper.Map<IEnumerable<SMVBreakDownVersionViewModel>>(dtHeader.CreateDataReader())).FirstOrDefault();
+
+                    var smvDetails = _mapper.Map<IEnumerable<SMVBreakDownDetails>>(dtDetails.CreateDataReader());
+
+                    smvBDHeader.SMVBreakDownDetail = smvDetails;
 
                     var response = new SuccessResponse<SMVBreakDownVersionViewModel>()
                     {

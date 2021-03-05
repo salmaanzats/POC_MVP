@@ -31,22 +31,68 @@ namespace POC.Application.AutoMapperProfiles
                   .ForMember(des => des.GarmentType, src => src.MapFrom(s => s["cGmtType"]));
 
             CreateMap<IDataRecord, StyleListViewModel>()
-               .ForMember(des => des.StyleNumber, src => src.MapFrom(s => s["Style"]));
+                  .ForMember(des => des.StyleNumber, src => src.MapFrom(s => s["Style"]));
 
             CreateMap<IDataRecord, SMVBreakDownVersionViewModel>()
-              .ForMember(des => des.BreakDownNumber, src => src.MapFrom(s => s["nBdNumber"]))
-              .ForMember(des => des.XMLSketch, src => src.MapFrom(s => s["xmSketchPath"]))
-              .ForMember(
-                           des => des.ConfirmedOn,
-                           src => src.MapFrom(s => !string.IsNullOrEmpty(s["dConfirmedOn"].ToString()) ? s["dConfirmedOn"].ToString() : null
-                         ))
-              .ForMember(des => des.IsNewOB, src => src.MapFrom(s => s["bNewOB"]))
-              .ForPath(des => des.ConfirmedBy.UserName, src => src.MapFrom(s => s["cConfirmedBy"]))
-              .ForPath(des => des.Account.AccountNo, src => src.MapFrom(s => s["cBdAccount"]))
-            .ForPath(des => des.Style.StyleCode, src => src.MapFrom(s => s["nBdStyleCode"]))
-            .ForPath(des => des.Style.StyleNumber, src => src.MapFrom(s => s["cBdStyle"]))
-            .ForPath(des => des.Style.GarmentType.GarmentTypeID, src => src.MapFrom(s => s["nIEGmtTypeID"]))
-            .ForPath(des => des.Style.GarmentType.MainGarmentType, src => src.MapFrom(s => s["cGmtType"]));
+                .ForMember(des => des.BreakDownNumber, src => src.MapFrom(s => s["nBdNumber"]))
+                .ForMember(des => des.XMLSketch, src => src.MapFrom(s => s["xmSketchPath"]))
+                .ForMember
+                    (
+                        des => des.ConfirmedOn,
+                        src => src.MapFrom(s => !string.IsNullOrEmpty(s["dConfirmedOn"].ToString()) ? s["dConfirmedOn"].ToString() : null
+                    ))
+                .ForMember(des => des.IsNewOB, src => src.MapFrom(s => s["bNewOB"]))
+                .ForPath(des => des.ConfirmedBy.UserName, src => src.MapFrom(s => s["cConfirmedBy"]))
+                .ForPath(des => des.Account.AccountNo, src => src.MapFrom(s => s["cBdAccount"]))
+                .ForPath(des => des.Style.StyleCode, src => src.MapFrom(s => s["nBdStyleCode"]))
+                .ForPath(des => des.Style.StyleNumber, src => src.MapFrom(s => s["cBdStyle"]))
+                    .ForPath(des => des.Style.GarmentType.GarmentTypeID, src => src.MapFrom(s => s["nIEGmtTypeID"]))
+                    .ForPath(des => des.Style.GarmentType.MainGarmentType, src => src.MapFrom(s => s["cGmtType"]))
+                .ForPath(des => des.GarmentTypes.GarmentTypeID, src => src.MapFrom(s => s["nIEGmtTypeID"]))
+                .ForPath(des => des.GarmentTypes.MainGarmentType, src => src.MapFrom(s => s["cGmtType"]))
+                .ForPath(des => des.FabContent.ContentID, src => src.MapFrom(s => s["nFiberContentID"]))
+                .ForPath(des => des.FabContent.Content, src => src.MapFrom(s => s["cFabricContent"]))
+                .ForMember(des => des.Remarks, src => src.MapFrom(s => s["versionRemark"]))
+                .ForMember(des => des.SketchPath, src => src.MapFrom(s => s["cSketchPath"]))
+                .ForMember(des => des.VersionHDID, src => src.MapFrom(s => s["nBdVersionHdID"]))
+                .ForMember(des => des.Description, src => src.MapFrom(s => s["cBdDesc"]))
+                .ForPath(des => des.SampleType.SampleTypeID, src => src.MapFrom(s => s["nSamTypeID"]));
+
+
+            CreateMap<IDataRecord, SMVBreakDownDetails>()
+                 .ForMember(des => des.IsSelected, src => src.MapFrom(s => false))
+                 .ForMember(des => des.Remark, src => src.MapFrom(s => s["cRemark"]))
+                 .ForMember(des => des.Remark, src => src.MapFrom(s => s["cOperationDesc"]))
+                 .ForMember(des => des.OperationSequnce, src => src.MapFrom(s => s["nOPerationSeq"]))
+                 .ForMember(des => des.IsNewlyAdded, src => src.MapFrom(s => s["newlyAdded"]))
+                 .ForPath(des => des.SMVBreakDownDTGroupHD.HeaderID, src => src.MapFrom(s => s["nHeaderID"] ?? default(int)))
+                 .ForPath(des => des.SMVBreakDownDTGroupHD.HeaderDes, src => src.MapFrom(s => s["cHeaderDes"]))
+                 .ForPath(des => des.SMVBreakDownDTGroupHD.GarmentPartID, src => src.MapFrom(s => s["nGarmentID"]))
+                 .ForPath(des => des.SMVBreakDownDTGroupHD.GarmentPartName, src => src.MapFrom(s => s["muText"]))
+                 .ForPath(des => des.SMVBreakDownDTGroupHD.OrderID, src => src.MapFrom(s => s["nHOrder"]))
+                 .ForPath(des => des.McCode.MCCodeID, src => src.MapFrom(s => s["nMcCodeID"] == null ? default(int) : s["nMcCodeID"]))
+                 .ForPath(des => des.McCode.MCCode, src => src.MapFrom(s => s["McCode"] == null ? string.Empty : s["McCode"].ToString().Trim()))
+                 .ForPath(des => des.McCode.MCDescription, src => src.MapFrom(s => s["McDesc"]));
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         }
