@@ -82,37 +82,6 @@ namespace POC.Application.AutoMapperProfiles
                     .ForPath(des => des.OperationMaster.DeptCode.DepartmentCode, src => src.MapFrom(s => s["cDep_Code"].ToString().Trim()))
                     .ForPath(des => des.OperationMaster.DeptCode.DeptID, src => src.MapFrom(s => s["nDepartmentID"]));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 }

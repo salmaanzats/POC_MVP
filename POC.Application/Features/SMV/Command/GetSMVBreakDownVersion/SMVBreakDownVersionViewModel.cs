@@ -32,7 +32,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public bool IsSelected { get; set; }
         public SMVBreakDownDTGroupHD SMVBreakDownDTGroupHD { get; set; }
         public IEData McCode { get; set; }
-        //public IEData NewMcCode { get; set; }
+        public IEData NewMcCode { get; set; }
         public OperationMaster OperationMaster { get; set; }
         //public SewingDepartment NewDepCode { get; set; }
         public string Remark { get; set; }
