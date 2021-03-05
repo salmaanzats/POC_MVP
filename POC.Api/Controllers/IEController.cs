@@ -53,13 +53,22 @@ namespace POC.Api.Controllers
         }
 
 
-        [HttpGet("garment/breakdown/{versionHDID:int}", Name = "GetBreakDownData")]
+        [HttpGet("garment/smvbreakdown/{versionHDID}", Name = "GetBreakDownData")]
         [ProducesResponseType(typeof(SuccessResponse<SMVBreakDownVersionViewModel>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<SuccessResponse<SMVBreakDownVersionViewModel>>> GetBreakDownData(int versionHDID)
+        public async Task<ActionResult<SuccessResponse<SMVBreakDownVersionViewModel>>> GetBreakDownData(string versionHDID)
         {
+            try
+            {
             var viewModel = await _mediator.Send(new GetSMVBreakDownVersionQuery() { VersionHDID = versionHDID });
             return Ok(viewModel);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

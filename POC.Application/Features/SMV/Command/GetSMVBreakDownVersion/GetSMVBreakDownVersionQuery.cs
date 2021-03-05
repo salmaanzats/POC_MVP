@@ -8,6 +8,6 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
 {
     public class GetSMVBreakDownVersionQuery : IRequest<SuccessResponse<SMVBreakDownVersionViewModel>>
     {
-        public int VersionHDID { get; set; }
+        public string VersionHDID { get; set; }
     }
 }

@@ -12,18 +12,19 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public DateTime? ConfirmedOn { get; set; }
         public bool IsNewOB { get; set; }
         public User ConfirmedBy { get; set; }
-        public MasterJobDetail JobDetails { get; set; }
+        //public MasterJobDetail JobDetails { get; set; }
+        public Style Style { get; set; }
         public Accounts Account { get; set; }
-        public GarmentTypes GarmentTypes { get; set; }
-        public FabricContent FabContent { get; set; }
-        public string Remarks { get; set; }
-        public string SketchPath { get; set; }
-        public int VersionHDID { get; set; }
-        public string Description { get; set; }
+        //public GarmentTypes GarmentTypes { get; set; }
+        //public FabricContent FabContent { get; set; }
+        //public string Remarks { get; set; }
+        //public string SketchPath { get; set; }
+        //public int VersionHDID { get; set; }
+        //public string Description { get; set; }
 
-        public SampleType SampleType { get; set; }
+        //public SampleType SampleType { get; set; }
 
-        public IEnumerable<SMVBreakDownDetails> SMVBreakDownDetail { get; set; }
+        //public IEnumerable<SMVBreakDownDetails> SMVBreakDownDetail { get; set; }
     }
 
     public class SMVBreakDownDetails 
@@ -374,11 +375,11 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public string KomarStyleNumber { get; set; }
         public string Season { get; set; }
         public GarmentTypes GarmentType { get; set; }
-        public Accounts Account { get; set; }
-        public FabricContent FabricContetnt { get; set; }
-        public PackingMethods PackingMethods { get; set; }
-        public CuttingTypes CuttingTypes { get; set; }
-        public SpecialOperation SpecialOperation { get; set; }
+        //public Accounts Account { get; set; }
+        //public FabricContent FabricContetnt { get; set; }
+        //public PackingMethods PackingMethods { get; set; }
+        //public CuttingTypes CuttingTypes { get; set; }
+        //public SpecialOperation SpecialOperation { get; set; }
         public DateTime? TargetCut { get; set; }
         public object Clone()
         {
@@ -426,7 +427,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public int AccountID { get; set; }
         public string AccountNo { get; set; }
         public string AccountName { get; set; }
-        public Contracts Contract { get; set; }
+        //public Contracts Contract { get; set; }
 
 
 

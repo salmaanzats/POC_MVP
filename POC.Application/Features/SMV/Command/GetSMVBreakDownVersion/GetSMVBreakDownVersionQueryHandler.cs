@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
                     SqlDataAdapter da = new SqlDataAdapter();
                     SqlCommand cmd = conn.CreateCommand();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@In_VersionHDID", SqlDbType.Int).Value = request.VersionHDID;
+                    cmd.Parameters.Add("@In_VersionHDID", SqlDbType.Int).Value = 136697;// request.VersionHDID;
                     cmd.CommandText = "Sp_IE_GetBreakDownByVertionHDID";
 
                     da.SelectCommand = cmd;
@@ -44,12 +45,11 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
                     DataTable dt = ds.Tables[0];
                     DataTable dt1 = ds.Tables[1];
 
-                    var list = _mapper.Map<SMVBreakDownVersionViewModel>(dt.CreateDataReader());
+                    var smvBDHeader = (_mapper.Map<IEnumerable<SMVBreakDownVersionViewModel>>(dt.CreateDataReader())).FirstOrDefault();
 
                     var response = new SuccessResponse<SMVBreakDownVersionViewModel>()
                     {
-                        //TotalRecordCount = list.Count(),
-                        Data = list
+                        Data = smvBDHeader
                     };
 
                     return response;

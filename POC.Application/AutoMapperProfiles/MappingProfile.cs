@@ -36,10 +36,18 @@ namespace POC.Application.AutoMapperProfiles
             CreateMap<IDataRecord, SMVBreakDownVersionViewModel>()
               .ForMember(des => des.BreakDownNumber, src => src.MapFrom(s => s["nBdNumber"]))
               .ForMember(des => des.XMLSketch, src => src.MapFrom(s => s["xmSketchPath"]))
-              .ForMember(des => des.ConfirmedOn, src => src.MapFrom(s => s["dConfirmedOn"]))
+              .ForMember(
+                           des => des.ConfirmedOn,
+                           src => src.MapFrom(s => !string.IsNullOrEmpty(s["dConfirmedOn"].ToString()) ? s["dConfirmedOn"].ToString() : null
+                         ))
               .ForMember(des => des.IsNewOB, src => src.MapFrom(s => s["bNewOB"]))
-              .ForMember(des => des.ConfirmedBy.UserName, src => src.MapFrom(s => s["cConfirmedBy"]));
-            //.ForMember(des => des.ConfirmedBy.UserName, src => src.MapFrom(s => s["cConfirmedBy"]))
+              .ForPath(des => des.ConfirmedBy.UserName, src => src.MapFrom(s => s["cConfirmedBy"]))
+              .ForPath(des => des.Account.AccountNo, src => src.MapFrom(s => s["cBdAccount"]))
+            .ForPath(des => des.Style.StyleCode, src => src.MapFrom(s => s["nBdStyleCode"]))
+            .ForPath(des => des.Style.StyleNumber, src => src.MapFrom(s => s["cBdStyle"]))
+            .ForPath(des => des.Style.GarmentType.GarmentTypeID, src => src.MapFrom(s => s["nIEGmtTypeID"]))
+            .ForPath(des => des.Style.GarmentType.MainGarmentType, src => src.MapFrom(s => s["cGmtType"]));
+
 
         }
     }
