@@ -72,12 +72,30 @@ namespace POC.Application.AutoMapperProfiles
                  .ForPath(des => des.SMVBreakDownDTGroupHD.OrderID, src => src.MapFrom(s => s["nHOrder"]))
                  .ForPath(des => des.McCode.MCCodeID, src => src.MapFrom(s => s["nMcCodeID"] == null ? default(int) : s["nMcCodeID"]))
                  .ForPath(des => des.McCode.MCCode, src => src.MapFrom(s => s["McCode"] == null ? string.Empty : s["McCode"].ToString().Trim()))
-                 .ForPath(des => des.McCode.MCDescription, src => src.MapFrom(s => s["McDesc"]));
+                 .ForPath(des => des.McCode.MCDescription, src => src.MapFrom(s => s["McDesc"]))
+                 .ForPath(des => des.OperationMaster.GSDReference, src => src.MapFrom(s => s["cGSD_Ref"]))
+                 .ForPath(des => des.OperationMaster.GSDSMV, src => src.MapFrom(s => double.Parse(s["nGSD_SMV"].ToString())))
+                 .ForPath(des => des.OperationMaster.NewGSDSMV, src => src.MapFrom(s => double.Parse(s["nGSD_SMV_New"].ToString())))
+                 .ForPath(des => des.OperationMaster.NewGSDSMV, src => src.MapFrom(s => Int32.Parse(s["nTGT"].ToString())))
+                 .ForPath(des => des.OperationMaster.SMVType, src => src.MapFrom(s => s["csmvType"].ToString().Trim()))
+                 .ForPath(des => des.OperationMaster.OperationID, src => src.MapFrom(s => s["nOperationID"]))
+                    .ForPath(des => des.OperationMaster.DeptCode.DepartmentCode, src => src.MapFrom(s => s["cDep_Code"].ToString().Trim()))
+                    .ForPath(des => des.OperationMaster.DeptCode.DeptID, src => src.MapFrom(s => s["nDepartmentID"]));
 
 
 
 
-            
+
+
+
+
+
+
+
+
+
+
+
 
 
 
