@@ -46,7 +46,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
                     DataTable dtDetails = ds.Tables[1];
                     DataTable dtReviewData = ds.Tables[2];
 
-                    var smvBDHeader = (_mapper.Map<IEnumerable<SMVBreakDownVersionViewModel>>(dtHeader.CreateDataReader())).FirstOrDefault();
+                    var smvBDHeader = _mapper.Map<IEnumerable<SMVBreakDownVersionViewModel>>(dtHeader.CreateDataReader()).FirstOrDefault();
 
                     var smvDetails = _mapper.Map<IEnumerable<SMVBreakDownDetails>>(dtDetails.CreateDataReader());
 
