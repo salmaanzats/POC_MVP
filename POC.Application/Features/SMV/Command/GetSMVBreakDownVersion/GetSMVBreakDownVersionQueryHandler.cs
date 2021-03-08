@@ -50,20 +50,33 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
 
                     var smvDetails = _mapper.Map<IEnumerable<SMVBreakDownDetails>>(dtDetails.CreateDataReader());
 
-                    var smvReviewData = _mapper.Map<IEnumerable<IEData>>(dtReviewData.CreateDataReader());
+                    var smvReviewData = _mapper.Map<IEnumerable<ReviewData>>(dtReviewData.CreateDataReader());
 
-                    if(smvDetails.Any())
+
+                    foreach (var svmDetail in smvDetails)
                     {
-                        foreach (var svmDetail in smvDetails)
-                        {
-                            svmDetail.NewMcCode = new IEData
-                            {
-                                MCCodeID = dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID) == null ? svmDetail.McCode.MCCodeID : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID)?.FirstOrDefault() == null ? svmDetail.McCode.MCCodeID == null ? default(int) : svmDetail.McCode.MCCodeID : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID).FirstOrDefault().Field<int>("nMcCodeID"),
+                        var operations = smvReviewData.Where(r => r.OperationID == svmDetail.OperationID).ToList();
 
-                                MCCode = dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID) == null ? svmDetail.McCode.MCCode == null ? "" : svmDetail.McCode.MCCode.Trim() : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID)?.FirstOrDefault() == null ? svmDetail.McCode.MCCode == null ? "" : svmDetail.McCode.MCCode.Trim() : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID).FirstOrDefault().Field<string>("McCode")
-                            };
-                        }
+                        svmDetail.NewMcCode = new IEData
+                        {
+                            MCCodeID = operations == null ? svmDetail.MCCodeID : operations?.FirstOrDefault() == null ? svmDetail.MCCodeID == null ? default(int) : svmDetail.MCCodeID : operations.FirstOrDefault().OperationID,
+
+                            MCCode = operations == null ? svmDetail.StringMcCode == null ? "" : svmDetail.StringMcCode.Trim() : operations?.FirstOrDefault() == null ? svmDetail.StringMcCode == null ? "" : svmDetail.StringMcCode.Trim() : operations.FirstOrDefault().MCCode,
+                        };
+
+                        svmDetail.NewDepCode = new SewingDepartment
+                        {
+
+                            DeptCode = operations == null ? svmDetail.NewDeptCode.Trim() : operations?.FirstOrDefault() == null ? svmDetail.NewDeptCode : operations.FirstOrDefault().DepartmentCode.Trim(),
+
+                            DeptDescription = operations == null ? svmDetail.NewDeptDesc : operations?.FirstOrDefault() == null ? svmDetail.NewDeptDesc : operations.FirstOrDefault().DeptDescription,
+
+                            DeptID = operations == null ? svmDetail.NewDeptId : operations?.FirstOrDefault() == null ? svmDetail.NewDeptId : operations.FirstOrDefault().DeptID
+                        };
+
+                        svmDetail.Indicator = operations?.FirstOrDefault()?.ReviewOperation;
                     }
+
                     smvBDHeader.SMVBreakDownDetail = smvDetails;
 
                     var response = new SuccessResponse<SMVBreakDownVersionViewModel>()

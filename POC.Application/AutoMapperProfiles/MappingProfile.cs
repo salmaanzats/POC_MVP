@@ -59,6 +59,7 @@ namespace POC.Application.AutoMapperProfiles
                 .ForPath(des => des.SampleType.SampleTypeID, src => src.MapFrom(s => s["nSamTypeID"]));
 
 
+
             CreateMap<IDataRecord, SMVBreakDownDetails>()
                  .ForMember(des => des.IsSelected, src => src.MapFrom(s => false))
                  .ForMember(des => des.Remark, src => src.MapFrom(s => s["cRemark"]))
@@ -83,12 +84,20 @@ namespace POC.Application.AutoMapperProfiles
                     .ForPath(des => des.OperationMaster.DeptCode.DeptID, src => src.MapFrom(s => s["nDepartmentID"]))
                  .ForMember(des => des.NewMcCode, src => src.MapFrom(s => new IEData()))
                  .ForMember(des => des.NewDepCode, src => src.MapFrom(s => new SewingDepartment()))
-                 .ForMember(des => des.Indicator, src => src.MapFrom(s => string.Empty));
+                 .ForMember(des => des.Indicator, src => src.MapFrom(s => string.Empty))
+                .ForMember(des => des.NewDeptId, src => src.MapFrom(s => s["nNewDepartmentID"]))
+                 .ForMember(des => des.NewDeptCode, src => src.MapFrom(s => s["cNewDep_Code"]))
+                 .ForMember(des => des.NewDeptDesc, src => src.MapFrom(s => s["cNewDep_Desc"]))
+                 .ForMember(des => des.MCCodeID, src => src.MapFrom(s => s["nMcCodeID"] == null ? default(int) : s["nMcCodeID"]))
+                 .ForMember(des => des.OperationID, src => src.MapFrom(s => s["nOperationID"]))
+                 .ForPath(des => des.StringMcCode, src => src.MapFrom(s => s["McCode"]));
 
 
 
-
-
+            CreateMap<IDataRecord, ReviewData>()
+                 .ForMember(des => des.OperationID, src => src.MapFrom(s => s["nOperationID"]))
+                 .ForMember(des => des.ReviewOperation, src => src.MapFrom(s => s["cReviewOperation"]))
+                 .ForMember(des => des.MCCode, src => src.MapFrom(s => s["McCode"]));
 
         }
     }

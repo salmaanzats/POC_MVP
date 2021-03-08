@@ -41,6 +41,12 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
 
         public string Indicator { get; set; }
         public bool IsNewlyAdded { get; set; } = false;
+        public int NewDeptId { get; set; }
+        public string NewDeptCode { get; set; }
+        public string NewDeptDesc { get; set; }
+        public int? MCCodeID { get; set; }
+        public int OperationID { get; set; }
+        public string StringMcCode { get; set; }
     }
 
     public class SMVBreakDownDTGroupHD
@@ -466,5 +472,16 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         public bool BreakDown { get; set; }
 
         public string SubDepartmentName { get; set; }
+    }
+
+    public class ReviewData
+    {
+        public int? OperationID { get; set; }
+        public string MCCode { get; set; }
+        public string DepartmentCode { get; set; }
+        public string DeptDescription { get; set; }
+        public int DeptID { get; set; }
+        public string ReviewOperation { get; set; }
+
     }
 }
