@@ -71,7 +71,7 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
         
         public string MCCode { get; set; }
         public string MCDescription { get; set; }
-        public int MCCodeID { get; set; }
+        public int? MCCodeID { get; set; }
     }
 
     public class SMVDepartment

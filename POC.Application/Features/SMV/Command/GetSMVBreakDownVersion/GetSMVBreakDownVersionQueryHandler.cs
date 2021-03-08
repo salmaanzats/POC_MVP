@@ -52,7 +52,18 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
 
                     var smvReviewData = _mapper.Map<IEnumerable<IEData>>(dtReviewData.CreateDataReader());
 
+                    if(smvDetails.Any())
+                    {
+                        foreach (var svmDetail in smvDetails)
+                        {
+                            svmDetail.NewMcCode = new IEData
+                            {
+                                MCCodeID = dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID) == null ? svmDetail.McCode.MCCodeID : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID)?.FirstOrDefault() == null ? svmDetail.McCode.MCCodeID == null ? default(int) : svmDetail.McCode.MCCodeID : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID).FirstOrDefault().Field<int>("nMcCodeID"),
 
+                                MCCode = dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID) == null ? svmDetail.McCode.MCCode == null ? "" : svmDetail.McCode.MCCode.Trim() : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID)?.FirstOrDefault() == null ? svmDetail.McCode.MCCode == null ? "" : svmDetail.McCode.MCCode.Trim() : dtReviewData.AsEnumerable().Where(r => r.Field<int?>("nOperationID") == svmDetail.OperationMaster.OperationID).FirstOrDefault().Field<string>("McCode")
+                            };
+                        }
+                    }
                     smvBDHeader.SMVBreakDownDetail = smvDetails;
 
                     var response = new SuccessResponse<SMVBreakDownVersionViewModel>()
