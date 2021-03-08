@@ -9,22 +9,42 @@ namespace StarGarments.OperationBreakdown.GUI
 {
     public partial class OperationBreakdownForm : Form, IOperationBreakDown
     {
+        public event EventHandler OnselectedIndexChangedEvent;
+
         public delegate void InvokeDelegate();
         public delegate void InvokeStyleDelegate();
+        StyleDetailsControl styleDetailsView;
+
         List<GarmentTypeModel> GarmentTypes = new List<GarmentTypeModel>();
         List<StyleModel> Styles = new List<StyleModel>();
+
+        public string SelectedStyle
+        {
+            get
+            {
+                return cmbStyle.SelectedItem.ToString();
+            }
+        }
 
         public OperationBreakdownForm()
         {
             InitializeComponent();
-            Tag = new OperationBreakDownPresenter(this);
+            styleDetailsView = new StyleDetailsControl();
+            Tag = new OperationBreakDownPresenter(this, styleDetailsView);
             this.Load += (s, a) => OnLoad();
+            cmbStyle.SelectedIndexChanged += (s, a) => OnselectedIndexChanged();
         }
 
         public event EventHandler OnLoadEvent;
         protected virtual void OnLoad()
         {
             var handler = OnLoadEvent;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnselectedIndexChanged()
+        {
+            var handler = OnselectedIndexChangedEvent;
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
@@ -49,9 +69,17 @@ namespace StarGarments.OperationBreakdown.GUI
 
         public void InvokeStyleMethod()
         {
+            cmbStyle.SelectedItem = null;
+            cmbStyle.SelectedText = "--select--";
+
             cmbStyle.DataSource = Styles;
             cmbStyle.DisplayMember = "StyleNumber";
             cmbStyle.ValueMember = "StyleNumber";
+        }
+
+        public void LoadStyleDetails()
+        {
+            this.panel1.Controls.Add(styleDetailsView);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace StarGarments.Service.Service.Repository.OperationBreakdown
         private HttpServiceRepository httpServiceRepository;
         public string GetGarmentTypesEndPoint { get; set; } = "ie/garment/types";
         public string GetStylesEndPoint { get; set; } = "ie/garment/style";
+        public string GetStylesByIdEndPoint { get; set; } = "ie/garment/style";
 
         public OperationBreakdownRepository()
         {
@@ -44,6 +45,11 @@ namespace StarGarments.Service.Service.Repository.OperationBreakdown
         public async Task<T> GetStyles<T>()
         {
             return await httpServiceRepository.Get<T>(GetStylesEndPoint);
+        }
+
+        public async Task<T> GetStyleById<T>()
+        {
+            return await httpServiceRepository.Get<T>(GetStylesByIdEndPoint);
         }
     }
 }
