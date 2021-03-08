@@ -8,5 +8,6 @@ namespace StarGarments.Service.Service.OperationBreakdown
     {
         Task<List<GarmentTypeModel>> LoadGarmentTypesAsync();
         Task<List<StyleModel>> LoadStylesAsync();
+        Task<SMVBreakDownVersion> GetStyleById();
     }
 }

@@ -16,6 +16,12 @@ namespace StarGarments.Service.Service.OperationBreakdown
             operationBreakdownRepository = new OperationBreakdownRepository();
         }
 
+        public async Task<SMVBreakDownVersion> GetStyleById()
+        {
+            var res = await operationBreakdownRepository.GetStyleById<ReponseModel<SMVBreakDownVersion>>();
+            return res.Data;
+        }
+
         public async Task<List<GarmentTypeModel>> LoadGarmentTypesAsync()
         {
             var res = await operationBreakdownRepository.Get<ReponseModel<List<GarmentTypeModel>>>();
