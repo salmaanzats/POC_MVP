@@ -9,6 +9,11 @@ namespace StarGarments.OperationBreakdown.GUI
 {
     public partial class OperationBreakdownForm : Form, IOperationBreakDown
     {
+        public delegate void InvokeDelegate();
+        public delegate void InvokeStyleDelegate();
+        List<GarmentTypeModel> GarmentTypes = new List<GarmentTypeModel>();
+        List<StyleModel> Styles = new List<StyleModel>();
+
         public OperationBreakdownForm()
         {
             InitializeComponent();
@@ -25,14 +30,26 @@ namespace StarGarments.OperationBreakdown.GUI
 
         public void AddGarmentTypesToDataSource(List<GarmentTypeModel> Item)
         {
-            cmbGarment_Type.DataSource = Item;
+            GarmentTypes = Item;
+            cmbGarment_Type.BeginInvoke(new InvokeDelegate(InvokeMethod));
+        }
+
+        public void InvokeMethod()
+        {
+            cmbGarment_Type.DataSource = GarmentTypes;
             cmbGarment_Type.DisplayMember = "GarmentType";
             cmbGarment_Type.ValueMember = "GarmentTypeId";
         }
 
         public void AddStylesToDataSource(List<StyleModel> Item)
         {
-            cmbStyle.DataSource = Item;
+            Styles = Item;
+            cmbStyle.BeginInvoke(new InvokeStyleDelegate(InvokeStyleMethod));
+        }
+
+        public void InvokeStyleMethod()
+        {
+            cmbStyle.DataSource = Styles;
             cmbStyle.DisplayMember = "StyleNumber";
             cmbStyle.ValueMember = "StyleNumber";
         }
