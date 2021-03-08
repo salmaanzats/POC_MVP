@@ -55,26 +55,26 @@ namespace POC.Application.Features.SMV.Command.GetSMVBreakDownVersion
 
                     foreach (var svmDetail in smvDetails)
                     {
-                        var operations = smvReviewData.Where(r => r.OperationID == svmDetail.OperationID).ToList();
+                        var smvReviewList = smvReviewData.Where(r => r.OperationID == svmDetail.OperationID).ToList();
 
                         svmDetail.NewMcCode = new IEData
                         {
-                            MCCodeID = operations == null ? svmDetail.MCCodeID : operations?.FirstOrDefault() == null ? svmDetail.MCCodeID == null ? default(int) : svmDetail.MCCodeID : operations.FirstOrDefault().OperationID,
+                            MCCodeID = smvReviewList == null ? svmDetail.MCCodeID : smvReviewList?.FirstOrDefault() == null ? svmDetail.MCCodeID == null ? default(int) : svmDetail.MCCodeID : smvReviewList.FirstOrDefault().OperationID,
 
-                            MCCode = operations == null ? svmDetail.StringMcCode == null ? "" : svmDetail.StringMcCode.Trim() : operations?.FirstOrDefault() == null ? svmDetail.StringMcCode == null ? "" : svmDetail.StringMcCode.Trim() : operations.FirstOrDefault().MCCode,
+                            MCCode = smvReviewList == null ? svmDetail.StringMcCode == null ? "" : svmDetail.StringMcCode.Trim() : smvReviewList?.FirstOrDefault() == null ? svmDetail.StringMcCode == null ? "" : svmDetail.StringMcCode.Trim() : smvReviewList.FirstOrDefault().MCCode,
                         };
 
                         svmDetail.NewDepCode = new SewingDepartment
                         {
 
-                            DeptCode = operations == null ? svmDetail.NewDeptCode.Trim() : operations?.FirstOrDefault() == null ? svmDetail.NewDeptCode : operations.FirstOrDefault().DepartmentCode.Trim(),
+                            DeptCode = smvReviewList == null ? svmDetail.NewDeptCode.Trim() : smvReviewList?.FirstOrDefault() == null ? svmDetail.NewDeptCode : smvReviewList.FirstOrDefault().DepartmentCode.Trim(),
 
-                            DeptDescription = operations == null ? svmDetail.NewDeptDesc : operations?.FirstOrDefault() == null ? svmDetail.NewDeptDesc : operations.FirstOrDefault().DeptDescription,
+                            DeptDescription = smvReviewList == null ? svmDetail.NewDeptDesc : smvReviewList?.FirstOrDefault() == null ? svmDetail.NewDeptDesc : smvReviewList.FirstOrDefault().DeptDescription,
 
-                            DeptID = operations == null ? svmDetail.NewDeptId : operations?.FirstOrDefault() == null ? svmDetail.NewDeptId : operations.FirstOrDefault().DeptID
+                            DeptID = smvReviewList == null ? svmDetail.NewDeptId : smvReviewList?.FirstOrDefault() == null ? svmDetail.NewDeptId : smvReviewList.FirstOrDefault().DeptID
                         };
 
-                        svmDetail.Indicator = operations?.FirstOrDefault()?.ReviewOperation;
+                        svmDetail.Indicator = smvReviewList?.FirstOrDefault()?.ReviewOperation;
                     }
 
                     smvBDHeader.SMVBreakDownDetail = smvDetails;

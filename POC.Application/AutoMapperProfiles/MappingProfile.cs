@@ -97,7 +97,21 @@ namespace POC.Application.AutoMapperProfiles
             CreateMap<IDataRecord, ReviewData>()
                  .ForMember(des => des.OperationID, src => src.MapFrom(s => s["nOperationID"]))
                  .ForMember(des => des.ReviewOperation, src => src.MapFrom(s => s["cReviewOperation"]))
-                 .ForMember(des => des.MCCode, src => src.MapFrom(s => s["McCode"]));
+                 .ForMember(des => des.MCCode, src => src.MapFrom(s => s["McCode"]))
+                 .ForMember(des => des.DepartmentCode, src => src.MapFrom(s => s["cDep_Code"]))
+                 .ForMember(des => des.DeptDescription, src => src.MapFrom(s => s["cDep_Desc"]))
+                 .ForMember(des => des.DeptID, src => src.MapFrom(s => s["nDepartmentID"]));
+
+
+            
+
+
+
+
+
+
+
+
 
         }
     }
