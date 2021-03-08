@@ -1,6 +1,9 @@
 ﻿using Stargarments.Domain.Entities.OperationBreakDown;
 using StarGarments.OperationBreakdown.GUI.Interface;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace StarGarments.OperationBreakdown.GUI
@@ -10,20 +13,53 @@ namespace StarGarments.OperationBreakdown.GUI
         public StyleDetailsControl()
         {
             InitializeComponent();
-            this.Load += (s, a) => OnLoad();
         }
 
         public event EventHandler OnLoadEvent;
 
-        public void AddStylesToDataGrid(SMVBreakDownVersion item)
+        public void AddStylesToDataGrid(SMVBreakDownVersion SMVBreakDown)
         {
-            dataGridView1.DataSource = item;
-        }
+            var count = 1;
+            List<BindingModel> model = new List<BindingModel>();
+            dataGridView1.DataSource = null;
+            foreach (SMVBreakDownDetails item in SMVBreakDown.SMVBreakDownDetail)
+            {
+                int id = item.SMVBreakDownDTGroupHD.HeaderID;
+                int orderID = item.SMVBreakDownDTGroupHD.OrderID;
 
-        protected virtual void OnLoad()
-        {
-            var handler = OnLoadEvent;
-            if (handler != null) handler(this, EventArgs.Empty);
+                if (orderID != 0)
+                {
+                    int garmentID = item.SMVBreakDownDTGroupHD.GarmentPartID;
+                    string gamentName = item.SMVBreakDownDTGroupHD.GarmentPartName;
+                    string garmetText = item.SMVBreakDownDTGroupHD.HeaderDes;
+
+                    model.Add(new BindingModel()
+                    {
+                        GarmentName = gamentName,
+                        GarmentID = garmentID,
+                        OrderID = orderID,
+                        Count = count,
+                        GarmetText = garmetText
+
+                    });
+                    count += 1;
+                }
+            }
+            //gamentName, garmentID, orderID, count, garmetText
+
+            var bindingList = new BindingList<BindingModel>(model);
+            var source = new BindingSource(bindingList, null);
+            dataGridView1.DataSource = source;
         }
     }
+
+    public class BindingModel
+    {
+        public string GarmentName { get; set; }
+        public int GarmentID { get; set; }
+        public int OrderID { get; set; }
+        public int Count { get; set; }
+        public string GarmetText { get; set; }
+    }
+
 }

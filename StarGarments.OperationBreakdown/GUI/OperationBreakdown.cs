@@ -22,7 +22,10 @@ namespace StarGarments.OperationBreakdown.GUI
         {
             get
             {
-                return cmbStyle.SelectedItem.ToString();
+                if (cmbStyle.SelectedIndex != 0)
+                    return cmbStyle.SelectedItem.ToString();
+                else
+                    return null;
             }
         }
 

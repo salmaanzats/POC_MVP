@@ -10,7 +10,8 @@ namespace StarGarments.Service.Service.Repository.OperationBreakdown
         private HttpServiceRepository httpServiceRepository;
         public string GetGarmentTypesEndPoint { get; set; } = "ie/garment/types";
         public string GetStylesEndPoint { get; set; } = "ie/garment/style";
-        public string GetStylesByIdEndPoint { get; set; } = "ie/garment/style";
+        public string GetStylesByIdEndPoint { get; set; } = "ie/garment/smvbreakdown/hht";
+       
 
         public OperationBreakdownRepository()
         {
