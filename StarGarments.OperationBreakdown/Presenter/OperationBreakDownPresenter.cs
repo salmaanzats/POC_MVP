@@ -18,9 +18,10 @@ namespace StarGarments.OperationBreakdown.Presenter
 
             operationView.OnLoadEvent += onLoad;
             operationView.OnselectedIndexChangedEvent += onSelectedIndexChanged;
+            operationView.OnTextChangeEvent += onTextChanged;
         }
 
-        private async void onLoad(object sender, EventArgs eventArgs)
+        private void onLoad(object sender, EventArgs eventArgs)
         {
             GetStyles();
             GetAllGarmentTypes();
@@ -29,11 +30,12 @@ namespace StarGarments.OperationBreakdown.Presenter
         private async void onSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
             var selectedStyle = operationView.SelectedStyle;
-            if (selectedStyle != null) { 
-            operationView.LoadStyleDetails();
-            var item = await this.operationBreakdownService.GetStyleById();
-            styleDetailView.AddStylesToDataGrid(item);
-        }
+            if (selectedStyle != null)
+            {
+                operationView.LoadStyleDetails();
+                var item = await this.operationBreakdownService.GetStyleById();
+                styleDetailView.AddStylesToDataGrid(item);
+            }
         }
 
         private async void GetStyles()
@@ -46,6 +48,11 @@ namespace StarGarments.OperationBreakdown.Presenter
         {
             var garmentTypes = await this.operationBreakdownService.LoadGarmentTypesAsync();
             operationView.AddGarmentTypesToDataSource(garmentTypes);
+        }
+
+        private void onTextChanged(object sender, EventArgs eventArgs)
+        {
+            operationView.FilterStyles(operationView.SearchStyleText);
         }
     }
 }

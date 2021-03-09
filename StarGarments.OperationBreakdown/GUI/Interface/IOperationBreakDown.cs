@@ -8,10 +8,13 @@ namespace StarGarments.OperationBreakdown.GUI.Interface
     {
         public event EventHandler OnLoadEvent;
         public event EventHandler OnselectedIndexChangedEvent;
+        public event EventHandler OnTextChangeEvent;
 
         void AddGarmentTypesToDataSource(List<GarmentTypeModel> item);
+        void FilterStyles(string searchText);
         void AddStylesToDataSource(List<StyleModel> item);
         void LoadStyleDetails();
         string SelectedStyle { get; }
+        string SearchStyleText { get; }
     }
 }

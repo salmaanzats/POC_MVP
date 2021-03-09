@@ -3,6 +3,8 @@ using StarGarments.OperationBreakdown.GUI.Interface;
 using StarGarments.OperationBreakdown.Presenter;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace StarGarments.OperationBreakdown.GUI
@@ -10,6 +12,9 @@ namespace StarGarments.OperationBreakdown.GUI
     public partial class OperationBreakdownForm : Form, IOperationBreakDown
     {
         public event EventHandler OnselectedIndexChangedEvent;
+        public event EventHandler OnTextChangeEvent;
+        public event EventHandler OnLoadEvent;
+
 
         public delegate void InvokeDelegate();
         public delegate void InvokeStyleDelegate();
@@ -17,6 +22,7 @@ namespace StarGarments.OperationBreakdown.GUI
 
         List<GarmentTypeModel> GarmentTypes = new List<GarmentTypeModel>();
         List<StyleModel> Styles = new List<StyleModel>();
+        string searchStyle = string.Empty;
 
         public string SelectedStyle
         {
@@ -29,6 +35,14 @@ namespace StarGarments.OperationBreakdown.GUI
             }
         }
 
+        public string SearchStyleText
+        {
+            get
+            {
+                return cmbStyle.Text;
+            }
+        }
+
         public OperationBreakdownForm()
         {
             InitializeComponent();
@@ -36,9 +50,15 @@ namespace StarGarments.OperationBreakdown.GUI
             Tag = new OperationBreakDownPresenter(this, styleDetailsView);
             this.Load += (s, a) => OnLoad();
             cmbStyle.SelectedIndexChanged += (s, a) => OnselectedIndexChanged();
+            cmbStyle.TextUpdate += (s, a) => onTextValueChanged();
         }
 
-        public event EventHandler OnLoadEvent;
+        protected virtual void onTextValueChanged()
+        {
+            var handler = OnTextChangeEvent;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
         protected virtual void OnLoad()
         {
             var handler = OnLoadEvent;
@@ -67,17 +87,28 @@ namespace StarGarments.OperationBreakdown.GUI
         public void AddStylesToDataSource(List<StyleModel> Item)
         {
             Styles = Item;
+        }
+
+        public void FilterStyles(string searchText)
+        {
+            searchStyle = searchText;
             cmbStyle.BeginInvoke(new InvokeStyleDelegate(InvokeStyleMethod));
         }
 
         public void InvokeStyleMethod()
         {
-            cmbStyle.SelectedItem = null;
-            cmbStyle.SelectedText = "--select--";
+            cmbStyle.DataSource = null;
+            cmbStyle.Items.Clear();
 
-            cmbStyle.DataSource = Styles;
-            cmbStyle.DisplayMember = "StyleNumber";
+            cmbStyle.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbStyle.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+            var res = Styles.Where(p => p.StyleNumber.StartsWith(searchStyle, ignoreCase: true, null)).Take(1000).ToList();
             cmbStyle.ValueMember = "StyleNumber";
+            cmbStyle.DisplayMember = "StyleNumber";
+            cmbStyle.DataSource = res;
+            cmbStyle.Text = searchStyle;
+            SendKeys.Send("{End}");
         }
 
         public void LoadStyleDetails()
