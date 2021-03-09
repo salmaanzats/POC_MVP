@@ -91,5 +91,11 @@ namespace StarGarments.GUI.Controls
             var handler = OnDeleteClickEvent;
             if (handler != null) handler(this, EventArgs.Empty);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OperationBreakdown.GUI.OperationBreakdownForm operationBreakdownForm = new OperationBreakdown.GUI.OperationBreakdownForm();
+            operationBreakdownForm.Show();
+        }
     }
 }

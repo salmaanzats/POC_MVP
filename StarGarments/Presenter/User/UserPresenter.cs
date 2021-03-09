@@ -2,8 +2,6 @@
 using StarGarments.Service.Service.User;
 using StarGarments_POC.GUI.Controls.Interface;
 using System;
-using System.Collections.Generic;
-using System.Runtime.Caching;
 
 namespace StarGarments.Presenter.User
 {
@@ -12,17 +10,9 @@ namespace StarGarments.Presenter.User
         public IUserList userListView;
         public IUser userView;
         private IUserService userService;
-        //public MemoryCache cache;
-        //public CacheItemPolicy policy;
 
         public UserPresenter(IUserList userListView, IUser userView)
         {
-            //cache = MemoryCache.Default;
-            //policy = new CacheItemPolicy();
-
-            //policy.AbsoluteExpiration =
-            //       DateTimeOffset.Now.AddSeconds(3600);
-
             this.userService = new UserService();
             this.userListView = userListView;
             this.userView = userView;
@@ -47,15 +37,6 @@ namespace StarGarments.Presenter.User
 
         private async void GetAllUsers()
         {
-            //var userList = new List<Stargarments.Domain.Entities.User>();
-            //userList = cache.Get("userList", null) as List<Stargarments.Domain.Entities.User>;
-            //if (userList == null)
-            //{
-
-            //    userList = await this.userService.LoadUsersAsync();
-            //    cache.Add("userList", userList, policy);
-            //}
-
             var userList = await this.userService.LoadUsersAsync();
             await userListView.AddListDataSource(userList);
         }
@@ -68,7 +49,6 @@ namespace StarGarments.Presenter.User
         private async void OnUpdateClick(object sender, EventArgs eventArgs)
         {
             await this.userService.UpdateUsersAsync(this.userView.GetUser);
-            // MemoryCache.Default.Remove("userlist");
             GetAllUsers();
         }
 

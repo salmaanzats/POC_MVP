@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\POC.Utility\POC.Utility.csproj" />
     <ProjectReference Include="..\Stargarments.Domain\Stargarments.Domain.csproj" />
+    <ProjectReference Include="..\StarGarments.OperationBreakdown\StarGarments.OperationBreakdown.csproj" />
     <ProjectReference Include="..\StarGarments.Service\StarGarments.Service.csproj" />
   </ItemGroup>
 
